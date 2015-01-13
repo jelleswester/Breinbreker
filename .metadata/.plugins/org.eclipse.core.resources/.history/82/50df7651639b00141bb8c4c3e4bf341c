@@ -120,7 +120,7 @@ public class GamePlay extends ActionBarActivity {
 		// pick random number between 0 and 9
 		Random rand = new Random();
 //		int variant = rand.nextInt(18);
-		int variant = 18;
+		int variant = 17;
 		
 		int count = 0;
 		
@@ -830,7 +830,7 @@ public class GamePlay extends ActionBarActivity {
 					temp_number[1] = rand.nextInt(9998) + 1;
 				}
 				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[0] * (temp_number[1] - 1)) - temp_number[1]) / 2;
+				temp_number[3] = ((numbersArray[1] * (numbersArray[2] - 1)) - numbersArray[2]) / 2;
 				
 				// set all numbers puzzle
 				numbersArray[0] = temp_number[0] * temp_number[1];
@@ -852,7 +852,7 @@ public class GamePlay extends ActionBarActivity {
 			}
 		}
 		
-		// return symbolsArray and numbersArray
+		// return symbolArray and numbersArray
 		return new int[][]{symbolsArray, numbersArray};
 	}
 	

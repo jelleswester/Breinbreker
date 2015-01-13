@@ -120,7 +120,7 @@ public class GamePlay extends ActionBarActivity {
 		// pick random number between 0 and 9
 		Random rand = new Random();
 //		int variant = rand.nextInt(18);
-		int variant = 18;
+		int variant = 16;
 		
 		int count = 0;
 		
@@ -747,7 +747,8 @@ public class GamePlay extends ActionBarActivity {
 				}
 				temp_number[1] = rand.nextInt(9998) + 1;
 				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[1] - temp_number[2]) * (temp_number[0] - 1)) / 2;
+				temp_number[3] = ((numbersArray[2] - numbersArray[4]) * (numbersArray[1] - 1)) / 2;
+				System.out.println(temp_number[0]);
 				
 				// set all numbers puzzle
 				numbersArray[0] = temp_number[0] * temp_number[1];
@@ -759,6 +760,8 @@ public class GamePlay extends ActionBarActivity {
 				numbersArray[6] = numbersArray[0] - numbersArray[3];
 				numbersArray[7] = numbersArray[1] * numbersArray[4];
 				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				System.out.println("test");
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
@@ -830,7 +833,7 @@ public class GamePlay extends ActionBarActivity {
 					temp_number[1] = rand.nextInt(9998) + 1;
 				}
 				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[0] * (temp_number[1] - 1)) - temp_number[1]) / 2;
+				temp_number[3] = ((numbersArray[1] * (numbersArray[2] - 1)) - numbersArray[2]) / 2;
 				
 				// set all numbers puzzle
 				numbersArray[0] = temp_number[0] * temp_number[1];
@@ -852,7 +855,7 @@ public class GamePlay extends ActionBarActivity {
 			}
 		}
 		
-		// return symbolsArray and numbersArray
+		// return symbolArray and numbersArray
 		return new int[][]{symbolsArray, numbersArray};
 	}
 	

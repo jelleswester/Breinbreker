@@ -120,7 +120,7 @@ public class GamePlay extends ActionBarActivity {
 		// pick random number between 0 and 9
 		Random rand = new Random();
 //		int variant = rand.nextInt(18);
-		int variant = 18;
+		int variant = 14;
 		
 		int count = 0;
 		
@@ -664,7 +664,7 @@ public class GamePlay extends ActionBarActivity {
 					temp_number[1] = rand.nextInt(9996) + 2;
 				}
 				temp_number[3] = rand.nextInt(9998) + 1;
-				temp_number[2] = ((temp_number[1] - 1) * (temp_number[0] - temp_number[3])) / 2;
+				temp_number[2] = ((temp_number[1] - 1) * (temp_number[1] - temp_number[3])) / 2;
 				
 				// set all numbers puzzle
 				numbersArray[0] = temp_number[0];
@@ -701,11 +701,10 @@ public class GamePlay extends ActionBarActivity {
 				boolean condition = false;
 				while (condition == false) {
 					for (int i = 0; i < 3; i++) {
-						temp_number[i] = temp_number[i] = rand.nextInt(500) + 3;
+						temp_number[i] = temp_number[i] = rand.nextInt(9998) + 1;
 					}
-					if ((temp_number[2] * (temp_number[1] - 1)) % (temp_number[0] + temp_number[2] - 1) == 0) {
+					if ((temp_number[2] * (temp_number[1] - 1)) % (temp_number[0] + temp_number[2] + 1) == 0) {
 						condition = true;
-						temp_number[3] = (temp_number[2] * (temp_number[1] - 1)) / (temp_number[0] + temp_number[2] - 1);
 					}
 				}
 				
@@ -741,20 +740,19 @@ public class GamePlay extends ActionBarActivity {
 				right_puzzle = true;
 				
 				// pick 4 suitable random integers between 1 and 9999				
-				temp_number[0] = 2;
-				while ((temp_number[0] % 2) == 0) {
-					temp_number[0] = rand.nextInt(9996) + 2;
-				}
+				temp_number[0] = rand.nextInt(9998) + 1;
 				temp_number[1] = rand.nextInt(9998) + 1;
-				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[1] - temp_number[2]) * (temp_number[0] - 1)) / 2;
+				temp_number[2] = 2;
+				while ((temp_number[2] % 2) == 0) {
+					temp_number[2] = rand.nextInt(9996) + 2;
+				}
 				
 				// set all numbers puzzle
 				numbersArray[0] = temp_number[0] * temp_number[1];
 				numbersArray[1] = temp_number[0];
 				numbersArray[2] = temp_number[1];
 				numbersArray[4] = temp_number[2];
-				numbersArray[5] = temp_number[3];
+				numbersArray[5] = ((numbersArray[2] - numbersArray[4]) * (numbersArray[1] - 1)) / 2;
 				numbersArray[3] = numbersArray[5] - numbersArray[4];
 				numbersArray[6] = numbersArray[0] - numbersArray[3];
 				numbersArray[7] = numbersArray[1] * numbersArray[4];
@@ -830,7 +828,7 @@ public class GamePlay extends ActionBarActivity {
 					temp_number[1] = rand.nextInt(9998) + 1;
 				}
 				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[0] * (temp_number[1] - 1)) - temp_number[1]) / 2;
+				temp_number[3] = ((numbersArray[1] * (numbersArray[2] - 1)) - numbersArray[2]) / 2;
 				
 				// set all numbers puzzle
 				numbersArray[0] = temp_number[0] * temp_number[1];
@@ -852,7 +850,7 @@ public class GamePlay extends ActionBarActivity {
 			}
 		}
 		
-		// return symbolsArray and numbersArray
+		// return symbolArray and numbersArray
 		return new int[][]{symbolsArray, numbersArray};
 	}
 	

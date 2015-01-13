@@ -830,7 +830,7 @@ public class GamePlay extends ActionBarActivity {
 					temp_number[1] = rand.nextInt(9998) + 1;
 				}
 				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[0] * (temp_number[1] - 1)) - temp_number[1]) / 2;
+				temp_number[3] = ((temp_number[0] * (temp_number[1]] - 1)) - temp_number[1]) / 2;
 				
 				// set all numbers puzzle
 				numbersArray[0] = temp_number[0] * temp_number[1];
