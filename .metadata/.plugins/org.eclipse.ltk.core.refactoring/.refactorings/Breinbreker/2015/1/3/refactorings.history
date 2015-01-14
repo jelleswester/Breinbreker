@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;nl.mprog.jelleswester.breinbreker.GamePlay&apos; to &apos;GamePlayActivity&apos;&#x0D;&#x0A;- Original project: &apos;Breinbreker&apos;&#x0D;&#x0A;- Original element: &apos;nl.mprog.jelleswester.breinbreker.GamePlay&apos;&#x0D;&#x0A;- Renamed element: &apos;nl.mprog.jelleswester.breinbreker.GamePlayActivity&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;GamePlay&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;nl.mprog.jelleswester.breinbreker{GamePlay.java[GamePlay" matchStrategy="1" name="GamePlayActivity" qualified="false" references="true" similarDeclarations="false" stamp="1421250645630" textual="false" version="1.0"/>
+</session>

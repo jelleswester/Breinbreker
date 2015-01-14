@@ -17,7 +17,7 @@ public class StartScreen extends ActionBarActivity {
     // activates when clicking on start button
   	public void startButton(View view) {
   		 	
-     	Intent intent = new Intent(this, GamePlay.class);
+     	Intent intent = new Intent(this, GamePlayActivity.class);
      	startActivity(intent);
      	finish();
   	}
