@@ -17,6 +17,10 @@
     <string name="high_score_entry">Please enter your name for your high score:</string>
     <string name="example_name">Bob</string>
     <string name="example_high_score">1.    Bob               03:59:15</string>
+    <string name="characters">AAAA</string>
+    <string name="symbol">+</string>
+    <string name="symbol_equal">=</string>
+    <string name="text">1234</string>
     
 
 </resources>

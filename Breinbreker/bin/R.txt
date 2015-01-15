@@ -234,7 +234,8 @@ int drawable abc_textfield_searchview_holo_dark 0x7f020053
 int drawable abc_textfield_searchview_holo_light 0x7f020054
 int drawable abc_textfield_searchview_right_holo_dark 0x7f020055
 int drawable abc_textfield_searchview_right_holo_light 0x7f020056
-int drawable ic_launcher 0x7f020057
+int drawable background 0x7f020057
+int drawable ic_launcher 0x7f020058
 int id action_bar 0x7f05001c
 int id action_bar_activity_content 0x7f050015
 int id action_bar_container 0x7f05001b
@@ -375,6 +376,7 @@ int string action_settings 0x7f0a000f
 int string app_name 0x7f0a000d
 int string back 0x7f0a0016
 int string brein_breker 0x7f0a0013
+int string characters 0x7f0a001d
 int string confirm 0x7f0a0017
 int string congratulations 0x7f0a0019
 int string example_high_score 0x7f0a001c
@@ -383,6 +385,9 @@ int string hello_world 0x7f0a000e
 int string high_score 0x7f0a0015
 int string high_score_entry 0x7f0a001a
 int string start_game 0x7f0a0014
+int string symbol 0x7f0a001e
+int string symbol_equal 0x7f0a001f
+int string text 0x7f0a0020
 int string title_activity_game_play 0x7f0a0010
 int string title_activity_high_score 0x7f0a0011
 int string title_activity_you_won 0x7f0a0012

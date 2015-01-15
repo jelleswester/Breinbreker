@@ -1077,7 +1077,8 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int ic_launcher=0x7f020057;
+        public static final int background=0x7f020057;
+        public static final int ic_launcher=0x7f020058;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
@@ -1277,6 +1278,7 @@ containing a value of this type.
         public static final int app_name=0x7f0a000d;
         public static final int back=0x7f0a0016;
         public static final int brein_breker=0x7f0a0013;
+        public static final int characters=0x7f0a001d;
         public static final int confirm=0x7f0a0017;
         public static final int congratulations=0x7f0a0019;
         public static final int example_high_score=0x7f0a001c;
@@ -1285,6 +1287,9 @@ containing a value of this type.
         public static final int high_score=0x7f0a0015;
         public static final int high_score_entry=0x7f0a001a;
         public static final int start_game=0x7f0a0014;
+        public static final int symbol=0x7f0a001e;
+        public static final int symbol_equal=0x7f0a001f;
+        public static final int text=0x7f0a0020;
         public static final int title_activity_game_play=0x7f0a0010;
         public static final int title_activity_high_score=0x7f0a0011;
         public static final int title_activity_you_won=0x7f0a0012;
