@@ -1,0 +1,875 @@
+package nl.mprog.jelleswester.breinbreker;
+
+import java.util.Random;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+public class CreateGame {
+	
+	Context c;
+	public CreateGame (Context context) {
+		c = context;
+	}
+	
+	// method that opens saved game array
+	public Object[] savedGame() {
+		
+	    // open SharedPreferences
+		SharedPreferences mPrefs = c.getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE);
+		
+		// declare symbolArray & numbersArray
+		int[] symbolsArray = new int[12];
+		int[] numbersArray = new int[9];
+		String[] charactersArray = new String[9];
+		
+		// get symbolsArray
+		for (int i = 0; i < 12; i++) {
+			symbolsArray[i] = mPrefs.getInt("symbol" + i, 1);
+		}
+		
+		// get numbersArray
+		for (int j = 0; j < 9; j++) {
+			numbersArray[j] = mPrefs.getInt("number" + j, 0);
+		}
+		
+		// get charactersArray
+		for (int k = 0; k < 9; k++) {
+			charactersArray[k] = mPrefs.getString("character" + k, "A");
+		}
+		
+		return new Object[]{symbolsArray, numbersArray, charactersArray};
+		
+	}
+	
+	// method that creates a new game array
+	public Object[] newGame() {
+		
+		// declare int[] symbolsArray,int[] numbersArray and String[] charactersArray
+		int[] symbolsArray = new int[12];
+		int[] numbersArray = new int[9];
+		String[] charactersArray = new String[9];
+		
+		// declare int[] temp_number
+		int[] temp_number = new int[4];
+		
+		// declare boolean right_puzzle
+		boolean right_puzzle = false;
+		
+		// pick random number between 0 and 18
+		Random rand = new Random();
+		int variant = rand.nextInt(18);
+		
+		if (variant == 0) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{1,5,1,1,1,1,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false){ 
+			
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] + temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] + temp_number[3];
+				numbersArray[6] = temp_number[0] + temp_number[2];
+				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 1) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{2,5,2,2,2,2,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false){ 
+			
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] - temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] - temp_number[2];
+				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 2) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{1,5,2,1,2,2,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false){ 
+			
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] + temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] - temp_number[2];
+				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 3) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{1,5,1,2,1,2,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false){ 
+			
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] + temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] + temp_number[2];
+				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 4) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{2,5,1,1,1,2,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false){ 
+			
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] - temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] + temp_number[2];
+				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 5) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{2,5,1,2,1,1,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false){ 
+			
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] - temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] + temp_number[3];
+				numbersArray[6] = temp_number[0] + temp_number[2];
+				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 6) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{1,5,2,2,2,1,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false){ 
+			
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] + temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] + temp_number[3];
+				numbersArray[6] = temp_number[0] - temp_number[2];
+				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 7) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{2,5,2,1,2,1,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false){ 
+			
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] - temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] + temp_number[3];
+				numbersArray[6] = temp_number[0] - temp_number[2];
+				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 8) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{1,5,1,2,2,2,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				temp_number[2] = temp_number[1];
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] + temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] + temp_number[2];
+				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 9) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{2,5,2,1,1,1,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 random integers between 1 and 9999
+				for (int i = 0; i < 4; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				temp_number[2] = temp_number[1];
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] - temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] + temp_number[3];
+				numbersArray[6] = temp_number[0] - temp_number[2];
+				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 10) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{1,5,1,1,2,2,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 3 random integers between 1 and 9999
+				for (int i = 0; i < 3; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				temp_number[3] = temp_number[2] - temp_number[1];
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] + temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] + temp_number[2];
+				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 11) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{2,5,2,2,1,1,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 3 random integers between 1 and 9999
+				for (int i = 0; i < 3; i++) {
+					temp_number[i] = rand.nextInt(9998) + 1;
+				}
+				temp_number[3] = temp_number[1] - temp_number[2];
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] - temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] + temp_number[3];
+				numbersArray[6] = temp_number[0] - temp_number[2];
+				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 12) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{3,5,3,1,2,1,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 suitable random integers between 1 and 9999
+				boolean condition = false;
+				while (condition == false) {
+					temp_number[0] = 2;
+					while ((temp_number[0] % 2) == 0) {
+						temp_number[0] = rand.nextInt(9996) + 2;
+					}
+					temp_number[1] = rand.nextInt(9998) + 1;
+					temp_number[2] = rand.nextInt(9998) + 1;
+					if ((temp_number[1] * (temp_number[0] - 1)) > (temp_number[2] * (temp_number[0] + 1))) {
+						temp_number[3] = ((temp_number[1] * (temp_number[0] - 1)) - (temp_number[2] * (temp_number[0] + 1))) / 2;
+						condition = true;
+					}
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] * temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] + temp_number[3];
+				numbersArray[6] = temp_number[0] * temp_number[2];
+				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 13) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{3,5,3,1,1,2,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 suitable random integers between 1 and 9999
+				temp_number[0] = 2;
+				while ((temp_number[0] % 2) == 0) {
+					temp_number[0] = rand.nextInt(9996) + 2;
+				}
+				temp_number[1] = rand.nextInt(9998) + 1;
+				temp_number[2] = rand.nextInt(9998) + 1;
+				temp_number[3] =((temp_number[0] - 1)*(temp_number[1] - temp_number[2])) / 2;
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] * temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] * temp_number[2];
+				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 14) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{3,5,1,3,2,2,5,5,5,5,1,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 suitable random integers between 1 and 9999
+				temp_number[0] = rand.nextInt(9998) + 1;
+				temp_number[1] = 2;
+				while ((temp_number[1] % 2) == 0) {
+					temp_number[1] = rand.nextInt(9996) + 2;
+				}
+				temp_number[3] = rand.nextInt(9998) + 1;
+				temp_number[2] = ((temp_number[1] - 1) * (temp_number[0] - temp_number[3])) / 2;
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] * temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] + temp_number[2];
+				numbersArray[7] = temp_number[1] * temp_number[3];
+				numbersArray[8] = numbersArray[6] + numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}	
+		}
+		
+		else if (variant == 15) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{3,5,1,2,1,2,5,5,5,5,3,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 suitable random integers between 1 and 9999
+				boolean condition = false;
+				while (condition == false) {
+					for (int i = 0; i < 3; i++) {
+						temp_number[i] = temp_number[i] = rand.nextInt(500) + 3;
+					}
+					if ((temp_number[2] * (temp_number[1] - 1)) % (temp_number[0] + temp_number[2] - 1) == 0) {
+						condition = true;
+						temp_number[3] = (temp_number[2] * (temp_number[1] - 1)) / (temp_number[0] + temp_number[2] - 1);
+					}
+				}
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0];
+				numbersArray[1] = temp_number[1];
+				numbersArray[2] = temp_number[0] * temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[4] = temp_number[3];
+				numbersArray[5] = temp_number[2] - temp_number[3];
+				numbersArray[6] = temp_number[0] + temp_number[2];
+				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[8] = numbersArray[6] * numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 16) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{4,5,2,3,1,1,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 suitable random integers between 1 and 9999				
+				temp_number[0] = 2;
+				while ((temp_number[0] % 2) == 0) {
+					temp_number[0] = rand.nextInt(9996) + 2;
+				}
+				temp_number[1] = rand.nextInt(9998) + 1;
+				temp_number[2] = rand.nextInt(9998) + 1;
+				temp_number[3] = ((temp_number[1] - temp_number[2]) * (temp_number[0] - 1)) / 2;
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0] * temp_number[1];
+				numbersArray[1] = temp_number[0];
+				numbersArray[2] = temp_number[1];
+				numbersArray[4] = temp_number[2];
+				numbersArray[5] = temp_number[3];
+				numbersArray[3] = numbersArray[5] - numbersArray[4];
+				numbersArray[6] = numbersArray[0] - numbersArray[3];
+				numbersArray[7] = numbersArray[1] * numbersArray[4];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}	
+		}
+		
+		else if (variant == 17) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{4,5,2,3,1,2,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 suitable random integers between 1 and 9999
+				temp_number[0] = 2;
+				while ((temp_number[0] % 2) == 0) {
+					temp_number[0] = rand.nextInt(9996) + 2;
+				}
+				temp_number[1] = rand.nextInt(9998) + 1;
+				temp_number[2] = rand.nextInt(9998) + 1;
+				temp_number[3] = ((temp_number[1] * (temp_number[0] - 1)) - (temp_number[2] * (temp_number[0] + 1))) / 2;
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0] * temp_number[1];
+				numbersArray[1] = temp_number[0];
+				numbersArray[2] = temp_number[1];
+				numbersArray[4] = temp_number[2];
+				numbersArray[5] = temp_number[3];
+				numbersArray[3] = numbersArray[4] + numbersArray[5];
+				numbersArray[6] = numbersArray[0] - numbersArray[3];
+				numbersArray[7] = numbersArray[1] * numbersArray[4];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		else if (variant == 18) {
+			
+			// create symbolsArray
+			symbolsArray = new int[]{4,5,2,1,1,1,5,5,5,5,2,5};
+			
+			// create numbersArray
+			while (right_puzzle == false) {
+				
+				// set right_puzzle to true
+				right_puzzle = true;
+				
+				// pick 4 suitable random integers between 1 and 9999
+				temp_number[0] = 1;
+				while ((temp_number[0] % 2) != 0) {
+					temp_number[0] = rand.nextInt(9998) + 1;
+				}
+				temp_number[1] = 1;
+				while ((temp_number[1] % 2) != 0) {
+					temp_number[1] = rand.nextInt(9998) + 1;
+				}
+				temp_number[2] = rand.nextInt(9998) + 1;
+				temp_number[3] = ((temp_number[0] * (temp_number[1] - 1)) - temp_number[1]) / 2;
+				
+				// set all numbers puzzle
+				numbersArray[0] = temp_number[0] * temp_number[1];
+				numbersArray[1] = temp_number[0];
+				numbersArray[2] = temp_number[1];
+				numbersArray[3] = temp_number[2];
+				numbersArray[5] = temp_number[3];
+				numbersArray[4] = numbersArray[5] - numbersArray[3];
+				numbersArray[6] = numbersArray[0] - numbersArray[3];
+				numbersArray[7] = numbersArray[1] + numbersArray[4];
+				numbersArray[8] = numbersArray[6] - numbersArray[7];
+				
+				// check whether all numbers are between 1 and 9999
+				for (int j = 0; j < 9; j++) {
+					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
+						right_puzzle = false;
+					}
+				}
+			}
+		}
+		
+		// create charactersArray
+		charactersArray = createCharacters(numbersArray);
+		
+		// return symbolsArray and numbersArray
+		return new Object[]{symbolsArray, numbersArray, charactersArray};
+	}
+	
+	public String[] createCharacters(int[] numbersArray) {
+		
+		// declare charactersArray
+		String[] charactersArray = new String[9];
+		
+		// create map_numbers and map_chars
+		int[] map_numbers = new int[10];
+		char[] map_chars = {'A','B','C','D','E','F','G','H','J','K'};
+		
+		// fill map_numbers
+		for (int z = 0; z < 9; z++) {
+			
+			// continue until suitable number is found
+			boolean new_number = false;
+			while (new_number = false) {
+				
+				// take a random number
+				Random rand = new Random();
+				int random = rand.nextInt(8);
+				
+				// check if number is not already in map_numbers
+				if (contains(map_numbers, random) == false) {
+					
+					// add random number to map_numbers
+					map_numbers[z] = random;
+					
+					// set new_number to true
+					new_number = true;
+				}
+			}
+		}
+		
+		// loop through numbersArray
+		for (int i = 0; i < 9; i++) {
+			
+			// transform each number into a string
+			String temp = String.valueOf(numbersArray[i]);
+			StringBuilder temp1 = new StringBuilder();
+			System.out.println(temp);
+			
+			// loop through the characters of the string
+			for (int j = 0, k = temp.length(); j < k; j++) {
+				
+				char c = temp.charAt(j);
+				System.out.println(c);
+				
+				// change number to character
+				for (int l = 0; l < 10; l++) {
+					
+					System.out.println(map_numbers[l]);
+					if (Character.getNumericValue(c) == map_numbers[l]) {
+						temp1.append(map_chars[l]);
+					}
+				}
+			}
+			
+			String temp2 = temp1.toString();
+			charactersArray[i] = temp2;
+		}
+		
+//		for (int z = 0; z < 9; z++) {
+//			System.out.println(z + " = " + charactersArray[z]);
+//		}
+		
+		// return charactersArray
+		return charactersArray;
+	}
+	
+	// checks whether an integer is in an int array	
+	public boolean contains(final int[] array, final int key) {
+        for (final int i : array) {
+            if (i == key) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

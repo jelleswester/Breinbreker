@@ -1,5 +1,8 @@
 package nl.mprog.jelleswester.breinbreker;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import android.content.Context;
@@ -804,28 +807,15 @@ public class CreateGame {
 		int[] map_numbers = new int[10];
 		char[] map_chars = {'A','B','C','D','E','F','G','H','J','K'};
 		
-		// fill map_numbers
-		for (int z = 0; z < 9; z++) {
-			
-			// continue until suitable number is found
-			boolean new_number = false;
-			while (new_number = false) {
-				
-				// take a random number
-				Random rand = new Random();
-				int random = rand.nextInt(8);
-				
-				// check if number is not already in map_numbers
-				if (contains(map_numbers, random) == false) {
-					
-					// add random number to map_numbers
-					map_numbers[z] = random;
-					
-					// set new_number to true
-					new_number = true;
-				}
-			}
-		}
+		// shuffle the numbers of map_numbers 0-9
+		List<Integer> tempList = new ArrayList<Integer>();
+	    for (int i = 0; i < 10; i++) {
+	      tempList.add(i);
+	    }
+	    Collections.shuffle(tempList);
+	    for (int i = 0; i < 10; i++) {
+	      map_numbers[i] = tempList.get(i);
+	    }
 		
 		// loop through numbersArray
 		for (int i = 0; i < 9; i++) {
@@ -841,7 +831,6 @@ public class CreateGame {
 				
 				// change number to character
 				for (int l = 0; l < 10; l++) {
-					
 					if (Character.getNumericValue(c) == map_numbers[l]) {
 						temp1.append(map_chars[l]);
 					}

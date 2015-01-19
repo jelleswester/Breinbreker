@@ -9,6 +9,9 @@
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
 			<item value="system"/>
+			<item value="resID"/>
+			<item value="shared"/>
+			<item value="editText"/>
 			<item value="system."/>
 			<item value="count"/>
 			<item value="||"/>
