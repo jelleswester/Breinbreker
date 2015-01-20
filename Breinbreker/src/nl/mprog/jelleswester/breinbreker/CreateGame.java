@@ -25,6 +25,7 @@ public class CreateGame {
 		int[] symbolsArray = new int[12];
 		int[] numbersArray = new int[9];
 		String[] charactersArray = new String[9];
+		int[] answersArray = new int[9];
 		
 		// get symbolsArray
 		for (int i = 0; i < 12; i++) {
@@ -41,7 +42,12 @@ public class CreateGame {
 			charactersArray[k] = mPrefs.getString("character" + k, "A");
 		}
 		
-		return new Object[]{symbolsArray, numbersArray, charactersArray};
+		// get answersArray
+		for (int m = 0; m < 9; m++) {
+			answersArray[m] = mPrefs.getInt("answer" + m, 0);
+		}
+		
+		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray};
 		
 	}
 	
@@ -52,6 +58,7 @@ public class CreateGame {
 		int[] symbolsArray = new int[12];
 		int[] numbersArray = new int[9];
 		String[] charactersArray = new String[9];
+		int[] answersArray = new int[]{0,0,0,0,0,0,0,0,0};
 		
 		// declare int[] temp_number
 		int[] temp_number = new int[4];
@@ -795,7 +802,7 @@ public class CreateGame {
 		charactersArray = createCharacters(numbersArray);
 		
 		// return symbolsArray and numbersArray
-		return new Object[]{symbolsArray, numbersArray, charactersArray};
+		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray};
 	}
 	
 	public String[] createCharacters(int[] numbersArray) {

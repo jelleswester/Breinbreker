@@ -1,6 +1,7 @@
 package nl.mprog.jelleswester.breinbreker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -9,11 +10,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class GamePlayActivity extends ActionBarActivity {
 	
@@ -26,6 +25,9 @@ public class GamePlayActivity extends ActionBarActivity {
 	// variables to record time
 	long startTime;
 	long timeElapsed = 0;
+	
+	//
+	ArrayList<NumberPicker> numberPickers;
 	
 	
 	@Override
@@ -60,10 +62,7 @@ public class GamePlayActivity extends ActionBarActivity {
 		symbolsArray = (int[]) gameArrays[0];
 		numbersArray = (int[]) gameArrays[1];
 		charactersArray = (String[]) gameArrays[2];
-		
-		for (int z = 0; z < 9; z++) {
-			System.out.println(numbersArray[z]);
-		}
+		answersArray = (int[]) gameArrays[3];
 		
 		// build the game
 		buildGame(symbolsArray, charactersArray);
@@ -71,38 +70,58 @@ public class GamePlayActivity extends ActionBarActivity {
 		// start counting the time
 		startTime = System.currentTimeMillis();
 		
+		numberPickers = new ArrayList<NumberPicker>();
+		
 		for (int i = 0; i < 9; i++) {
+			
+			int number = answersArray[i];
+			int[] digits = new int[4];
+			int power = 3;
+			for (int k = 0; k < 4; k ++) {
+				digits[k] = number / ((int)Math.pow(10,power));
+				number = number - (digits[k] * (int)Math.pow(10,power));
+				power -= 1;
+			}
+			
+			
 			for (int j = 0; j < 4; j++) {
 				String textViewID = "numberPicker" + i + "_" + j;
 				int resID = getResources().getIdentifier(textViewID, "id", "nl.mprog.jelleswester.breinbreker");
 				NumberPicker np = (NumberPicker) findViewById(resID);
+				if (i == 0 && j == 0) {
+					System.out.println("eerst " +resID);
+				}
 				np.setMinValue(0);
 				np.setMaxValue(9);
+				np.setValue(digits[j]);
 				np.setId((i * 10) + j);
 				np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 				np.setWrapSelectorWheel(true);
-				
 				np.setOnValueChangedListener(new OnValueChangeListener() {
 					
 					@Override
 					public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 						answersArray = changeAnswer(answersArray, newVal, picker.getId());
-						for (int z = 0; z < 9; z++) {
-							System.out.println(answersArray[z]);
+						int[] locations = changeOtherValues(numbersArray, picker.getId());
+						
+						for (int b = 0, c = locations.length; b < c; b++) {
+							
+							int temp = ((locations[b]/ 10) * 4) + (locations[b] % 10);
+							NumberPicker np1 = numberPickers.get(temp);
+							np1.setValue(newVal);
+							
+							
 						}
-						if (wonGame(numbersArray,answersArray) == true) {
-							// open next activity
-							Context context = getApplicationContext();
-				    		CharSequence text = "You won biatch";
-				    		int duration = Toast.LENGTH_SHORT;
-				    		Toast toast = Toast.makeText(context, text, duration);
-				    		toast.show();
+						
+						if (wonGame(numbersArray,answersArray)) {
+							startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
+				         	finish();
 						}
 					}
 				});
+				numberPickers.add(np);
 			}
-		}
-				
+		}		
 	}
 	
 	// method that builds the game using the gameArrays
@@ -140,34 +159,91 @@ public class GamePlayActivity extends ActionBarActivity {
 		}
 	}
 	
-	public int[] changeAnswer(int[] answersArray, int newVal, int changed_position) {
+	public int[] changeOtherValues(int[] numbersArray, int changed_position) {
 		
-		int [] temp = answersArray;
-		int position1 = changed_position / 10;
-		int position2;
-		if (position1 == 0) {
-			position2 = changed_position;
+		// declare tempNumbers and locationsList
+		int[] tempNumbers = numbersArray;
+		List<Integer> locationsList = new ArrayList<Integer>();
+		
+		// determine on which location the number has changed
+		int positionInArray = changed_position / 10;
+		int positionInNumber;
+		if (positionInArray == 0) {
+			positionInNumber = changed_position;
 		}
 		else {
-			position2 = changed_position % position1;
+			positionInNumber = changed_position % (positionInArray * 10);
 		}
-		int temp1 = answersArray[position1];
-		int[] digits1 = new int[4];
-		int count = 0;
-		while (temp1 > 0) {
-			digits1[count] = (temp1 % 10);
-			temp1 = temp1 / 10;
-			count += 1;
+		
+		// determine which number corresponds to the determined location
+		int totalNumber = tempNumbers[positionInArray];
+		int[] numberDigits = new int[4];
+		for (int i = 3; i > -1; i--) {
+			numberDigits[i] = totalNumber % 10;
+			totalNumber /= 10;
 		}
-		digits1[position2] = newVal;
-		int changed_number = 0;
-		int count2 = 3;
-		for (int i = 0; i < 4; i++) {
-			changed_number = changed_number + (digits1[i] * ((int)Math.pow(10, count2)));
-			count2 = count2 - 1;
+
+		int toCompareWith = numberDigits[positionInNumber];
+		
+		// compare numbers and save other locations that need to be changed
+		for (int j = 0; j < 9; j++) {
+			int tempNumber = tempNumbers[j];
+			int[] tempDigits = new int[4];
+			for (int k = 3; k > -1; k--) {
+				tempDigits[k] = tempNumber % 10;
+				totalNumber /= 10;
+			}
+			for (int m = 0; m < 4; m++) {
+				if (tempDigits[m] == toCompareWith) {
+					int tempLocation = (j * 10) + m;
+					locationsList.add(tempLocation);
+				}
+			}
 		}
-		temp[position1] = changed_number;
-		return temp;
+		
+		// convert locationsList to int array
+		int[] returnLocations = new int[locationsList.size()];
+		for (int n = 0, p = locationsList.size(); n < p; n++) {
+			returnLocations[n] = locationsList.get(n);
+			System.out.println(returnLocations[n]);
+		}
+		
+		return returnLocations;
+		
+		
+	}
+	
+	public int[] changeAnswer(int[] answersArray, int newVal, int changed_position) {
+		
+		// determine which number needs to be altered using position in array and in number
+		int[] tempArray = answersArray;
+		int positionInArray = changed_position / 10;
+		int positionInNumber;
+		if (positionInArray == 0) {
+			positionInNumber = changed_position;
+		}
+		else {
+			positionInNumber = changed_position % (positionInArray * 10);
+		}
+		
+		// change the number
+		int numberToBeChanged = tempArray[positionInArray];
+		int[] numberDigits = new int[4];
+		for (int i = 3; i > -1; i--) {
+			numberDigits[i] = numberToBeChanged % 10;
+			numberToBeChanged /= 10;
+		}
+		numberDigits[positionInNumber] = newVal;
+		int replaceNumber = 0;
+		int power = 3;
+		for (int j = 0; j < 4; j++) {
+			replaceNumber = replaceNumber + (numberDigits[j] * ((int)Math.pow(10, power)));
+			power -= 1;
+		}
+		
+		// replace the old number by the new number and return the array
+		tempArray[positionInArray] = replaceNumber;
+		return tempArray;
 	}
 	
 	// method that checks whether game is finished
@@ -198,39 +274,8 @@ public class GamePlayActivity extends ActionBarActivity {
 	// activates when clicking on you won button
   	public void youWonButton(View view) {
   		
-  		int game_won_count = 0;
-    	for (int i = 0; i < 9; i++) {
-			String textViewID = "editText" + i;
-			int resID = getResources().getIdentifier(textViewID, "id", "nl.mprog.jelleswester.breinbreker");
-			EditText editText = (EditText) findViewById(resID);
-			String string = editText.getText().toString();
-			
-			if (string.length() == 0) {
-				answersArray[i] = 0;
-				game_won_count += 1;
-			}
-			else {
-				answersArray[i] = Integer.parseInt(string);
-			}
-		}
-    	
-    	if (wonGame(numbersArray, answersArray) == true) {
-    		// start next activity
-      		startActivity(new Intent(this, YouWonActivity.class));
-         	finish();
-    	}
-    	else if (game_won_count == 8) {
-    		// start next activity
-      		startActivity(new Intent(this, YouWonActivity.class));
-         	finish();
-    	}
-    	else {
-    		Context context = getApplicationContext();
-    		CharSequence text = "Incorrect answer :(!";
-    		int duration = Toast.LENGTH_SHORT;
-    		Toast toast = Toast.makeText(context, text, duration);
-    		toast.show();
-    	}
+  		startActivity(new Intent(this, YouWonActivity.class));
+     	finish();
   		
   	}
   	
