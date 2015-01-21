@@ -21,15 +21,15 @@ public class CreateGame {
 	    // open SharedPreferences
 		SharedPreferences mPrefs = c.getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE);
 		
-		// declare symbolArray & numbersArray
-		int[] symbolsArray = new int[12];
+		// declare symbolsArray, numbersArray, charactersArray & answersArray
+		String[] symbolsArray = new String[12];
 		int[] numbersArray = new int[9];
 		String[] charactersArray = new String[9];
 		int[] answersArray = new int[9];
 		
 		// get symbolsArray
 		for (int i = 0; i < 12; i++) {
-			symbolsArray[i] = mPrefs.getInt("symbol" + i, 1);
+			symbolsArray[i] = mPrefs.getString("symbol" + i, "+");
 		}
 		
 		// get numbersArray
@@ -47,6 +47,7 @@ public class CreateGame {
 			answersArray[m] = mPrefs.getInt("answer" + m, 0);
 		}
 		
+		// return all game Arrays
 		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray};
 		
 	}
@@ -54,8 +55,8 @@ public class CreateGame {
 	// method that creates a new game array
 	public Object[] newGame() {
 		
-		// declare int[] symbolsArray,int[] numbersArray and String[] charactersArray
-		int[] symbolsArray = new int[12];
+		// declare int[] signsArray,int[] numbersArray and String[] charactersArray
+		int[] signsArray = new int[12];
 		int[] numbersArray = new int[9];
 		String[] charactersArray = new String[9];
 		int[] answersArray = new int[]{0,0,0,0,0,0,0,0,0};
@@ -72,8 +73,8 @@ public class CreateGame {
 		
 		if (variant == 0) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{1,5,1,1,1,1,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{1,5,1,1,1,1,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false){ 
@@ -108,8 +109,8 @@ public class CreateGame {
 		
 		else if (variant == 1) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{2,5,2,2,2,2,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{2,5,2,2,2,2,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false){ 
@@ -144,8 +145,8 @@ public class CreateGame {
 		
 		else if (variant == 2) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{1,5,2,1,2,2,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{1,5,2,1,2,2,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false){ 
@@ -180,8 +181,8 @@ public class CreateGame {
 		
 		else if (variant == 3) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{1,5,1,2,1,2,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{1,5,1,2,1,2,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false){ 
@@ -216,8 +217,8 @@ public class CreateGame {
 		
 		else if (variant == 4) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{2,5,1,1,1,2,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{2,5,1,1,1,2,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false){ 
@@ -252,8 +253,8 @@ public class CreateGame {
 		
 		else if (variant == 5) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{2,5,1,2,1,1,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{2,5,1,2,1,1,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false){ 
@@ -288,8 +289,8 @@ public class CreateGame {
 		
 		else if (variant == 6) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{1,5,2,2,2,1,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{1,5,2,2,2,1,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false){ 
@@ -324,8 +325,8 @@ public class CreateGame {
 		
 		else if (variant == 7) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{2,5,2,1,2,1,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{2,5,2,1,2,1,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false){ 
@@ -360,8 +361,8 @@ public class CreateGame {
 		
 		else if (variant == 8) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{1,5,1,2,2,2,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{1,5,1,2,2,2,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -397,8 +398,8 @@ public class CreateGame {
 		
 		else if (variant == 9) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{2,5,2,1,1,1,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{2,5,2,1,1,1,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -434,8 +435,8 @@ public class CreateGame {
 		
 		else if (variant == 10) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{1,5,1,1,2,2,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{1,5,1,1,2,2,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -471,8 +472,8 @@ public class CreateGame {
 		
 		else if (variant == 11) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{2,5,2,2,1,1,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{2,5,2,2,1,1,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -508,8 +509,8 @@ public class CreateGame {
 		
 		else if (variant == 12) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{3,5,3,1,2,1,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{3,5,3,1,2,1,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -554,8 +555,8 @@ public class CreateGame {
 		
 		else if (variant == 13) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{3,5,3,1,1,2,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{3,5,3,1,1,2,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -594,8 +595,8 @@ public class CreateGame {
 		
 		else if (variant == 14) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{3,5,1,3,2,2,5,5,5,5,1,5};
+			// create signsArray
+			signsArray = new int[]{3,5,1,3,2,2,5,5,5,5,1,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -634,8 +635,8 @@ public class CreateGame {
 		
 		else if (variant == 15) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{3,5,1,2,1,2,5,5,5,5,3,5};
+			// create signsArray
+			signsArray = new int[]{3,5,1,2,1,2,5,5,5,5,3,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -677,8 +678,8 @@ public class CreateGame {
 		
 		else if (variant == 16) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{4,5,2,3,1,1,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{4,5,2,3,1,1,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -717,8 +718,8 @@ public class CreateGame {
 		
 		else if (variant == 17) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{4,5,2,3,1,2,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{4,5,2,3,1,2,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -757,8 +758,8 @@ public class CreateGame {
 		
 		else if (variant == 18) {
 			
-			// create symbolsArray
-			symbolsArray = new int[]{4,5,2,1,1,1,5,5,5,5,2,5};
+			// create signsArray
+			signsArray = new int[]{4,5,2,1,1,1,5,5,5,5,2,5};
 			
 			// create numbersArray
 			while (right_puzzle == false) {
@@ -797,6 +798,9 @@ public class CreateGame {
 				}
 			}
 		}
+		
+		// create symbolsArray
+		String[] symbolsArray = createSymbols(signsArray);
 		
 		// create charactersArray
 		charactersArray = createCharacters(numbersArray);
@@ -850,6 +854,37 @@ public class CreateGame {
 		
 		// return charactersArray
 		return charactersArray;
+	}
+	
+	public String[] createSymbols(int[] symbolsArray) {
+		
+		// declare tempArray and return Array
+		int[] tempArray = symbolsArray;
+		String[] returnArray = new String[12];
+		
+		// create returnArray
+		for (int i = 0; i < 12; i++) {
+			switch(tempArray[i]) {
+				case 1:
+					returnArray[i] = "+";
+					break;
+				case 2:
+					returnArray[i] = "-";
+					break;
+				case 3:
+					returnArray[i] = "x";
+					break;
+				case 4:
+					returnArray[i] = ":";
+					break;
+				case 5:
+					returnArray[i] = "=";
+					break;
+			}
+		}
+		
+		// return array
+		return returnArray;
 	}
 	
 	// checks whether an integer is in an int array	

@@ -9,22 +9,23 @@
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
 			<item value="system"/>
+			<item value="replaceNumber"/>
+			<item value="locationslist"/>
+			<item value="symbolsArray"/>
+			<item value="symbolsarray"/>
 			<item value="numberDigits"/>
 			<item value="integer"/>
 			<item value="Integer"/>
-			<item value="open"/>
-			<item value="onPause"/>
-			<item value="game_won_count"/>
-			<item value="resID"/>
 		</list>
 		<list key="replacehistory">
+			<item value="signsArray"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="381" key="DIALOG_HEIGHT"/>
-		<item value="921" key="DIALOG_X_ORIGIN"/>
-		<item value="317" key="DIALOG_Y_ORIGIN"/>
+		<item value="940" key="DIALOG_X_ORIGIN"/>
+		<item value="352" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

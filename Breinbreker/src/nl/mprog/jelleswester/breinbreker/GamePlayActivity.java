@@ -17,9 +17,9 @@ import android.widget.TextView;
 public class GamePlayActivity extends ActionBarActivity {
 	
 	// declare game arrays
-	int[] symbolsArray;
-	int[] numbersArray;
+	String[] symbolsArray;
 	String[] charactersArray;
+	int[] numbersArray;
 	int[] answersArray = new int[9];
 	
 	// variables to record time
@@ -28,6 +28,9 @@ public class GamePlayActivity extends ActionBarActivity {
 	
 	//
 	ArrayList<NumberPicker> numberPickers;
+	
+	//
+	ArrayList<Integer> doNotAlter;
 	
 	
 	@Override
@@ -48,7 +51,7 @@ public class GamePlayActivity extends ActionBarActivity {
 		// check for saved game
 		if (saved_game == true) {
 			CreateGame game = new CreateGame(mContext);
-			gameArrays = game.savedGame();	
+			gameArrays = game.savedGame();
 			timeElapsed = mPrefs.getLong("time_elapsed", 0);
 		}
 		
@@ -58,8 +61,9 @@ public class GamePlayActivity extends ActionBarActivity {
 			gameArrays = game.newGame();
 		}
 		
+		
 		// get symbolsArray and numbersArray
-		symbolsArray = (int[]) gameArrays[0];
+		symbolsArray = (String[]) gameArrays[0];
 		numbersArray = (int[]) gameArrays[1];
 		charactersArray = (String[]) gameArrays[2];
 		answersArray = (int[]) gameArrays[3];
@@ -71,10 +75,18 @@ public class GamePlayActivity extends ActionBarActivity {
 		startTime = System.currentTimeMillis();
 		
 		numberPickers = new ArrayList<NumberPicker>();
+		doNotAlter = new ArrayList<Integer>();
+		
+		for (int y = 0; y < 9; y++) {
+			System.out.println("n= "+ numbersArray[y]);
+			System.out.println("a= "+ answersArray[y]);
+		}
 		
 		for (int i = 0; i < 9; i++) {
 			
+			// get the right number from the answersArray to be displayed
 			int number = answersArray[i];
+			int length = String.valueOf(numbersArray[i]).length();
 			int[] digits = new int[4];
 			int power = 3;
 			for (int k = 0; k < 4; k ++) {
@@ -83,49 +95,54 @@ public class GamePlayActivity extends ActionBarActivity {
 				power -= 1;
 			}
 			
-			
 			for (int j = 0; j < 4; j++) {
+				
+				// find numberpicker by id
 				String textViewID = "numberPicker" + i + "_" + j;
 				int resID = getResources().getIdentifier(textViewID, "id", "nl.mprog.jelleswester.breinbreker");
 				NumberPicker np = (NumberPicker) findViewById(resID);
-				if (i == 0 && j == 0) {
-					System.out.println("eerst " +resID);
+				
+				// set features numberpicker
+				if (length + j < 4) {
+					np.setEnabled(false);
+					np.setMinValue(0);
+					np.setMaxValue(0);
+					np.setValue(0);
+					np.setId((i * 10) + j);
+					doNotAlter.add((i * 10) + j);
 				}
-				np.setMinValue(0);
-				np.setMaxValue(9);
-				np.setValue(digits[j]);
-				np.setId((i * 10) + j);
+				else {
+					np.setMinValue(0);
+					np.setMaxValue(9);
+					np.setValue(digits[j]);
+					np.setId((i * 10) + j);
+				}
 				np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 				np.setWrapSelectorWheel(true);
-				np.setOnValueChangedListener(new OnValueChangeListener() {
-					
-					@Override
-					public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-						answersArray = changeAnswer(answersArray, newVal, picker.getId());
-						int[] locations = changeOtherValues(numbersArray, picker.getId());
-						
-						for (int b = 0, c = locations.length; b < c; b++) {
+				np.setOnScrollListener(new NumberPicker.OnScrollListener() {
+
+			        @Override
+			        public void onScrollStateChange(NumberPicker picker, int scrollState) {
+			            if (scrollState == NumberPicker.OnScrollListener.SCROLL_STATE_IDLE) {
+			            	
+			            	Object[] changedArrays = changeAnswer(numberPickers, answersArray, numbersArray, picker.getValue(), picker.getId(), doNotAlter);
+			            	answersArray = (int[])changedArrays[0];
+			            	numberPickers = (ArrayList<NumberPicker>)changedArrays[1];
 							
-							int temp = ((locations[b]/ 10) * 4) + (locations[b] % 10);
-							NumberPicker np1 = numberPickers.get(temp);
-							np1.setValue(newVal);
-							
-							
-						}
-						
-						if (wonGame(numbersArray,answersArray)) {
-							startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
-				         	finish();
-						}
-					}
-				});
+							if (wonGame(numbersArray,answersArray)) {
+								startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
+					         	finish();
+							}
+			            }
+			        }
+			    });
 				numberPickers.add(np);
 			}
 		}		
 	}
 	
 	// method that builds the game using the gameArrays
-	public void buildGame(int[] symbolsArray, String[] charactersArray) {
+	public void buildGame(String[] symbolsArray, String[] charactersArray) {
 		
 		// put strings in textViews
 		for (int i = 0; i < 9; i++) {
@@ -140,110 +157,96 @@ public class GamePlayActivity extends ActionBarActivity {
 			String symbolViewID = "symbolView" + j;
 			int resID = getResources().getIdentifier(symbolViewID, "id", "nl.mprog.jelleswester.breinbreker");
 			TextView symbol = (TextView) findViewById(resID);
-			
-			if (symbolsArray[j] == 1) {
-				symbol.setText("+");
-			}
-			else if (symbolsArray[j] == 2) {
-				symbol.setText("-");
-			}
-			else if (symbolsArray[j] == 3) {
-				symbol.setText("x");
-			}
-			else if (symbolsArray[j] == 4) {
-				symbol.setText(":");
-			}
-			else if (symbolsArray[j] == 5) {
-				symbol.setText("=");
-			}
+			symbol.setText(symbolsArray[j]);
 		}
 	}
 	
-	public int[] changeOtherValues(int[] numbersArray, int changed_position) {
+	public Object[] changeAnswer(ArrayList<NumberPicker> numberPickers, int[] answersArray, int[] numbersArray, int newVal, int id, ArrayList<Integer>  doNotAlter) {
 		
-		// declare tempNumbers and locationsList
-		int[] tempNumbers = numbersArray;
-		List<Integer> locationsList = new ArrayList<Integer>();
+		// declare tempAnswersArray, tempNumbersArray, tempNumberPickers
+		int[] tempAnswersArray = answersArray;
+		int[] tempNumbersArray = numbersArray;
+		ArrayList<NumberPicker> tempNumberPickers = numberPickers;
 		
-		// determine on which location the number has changed
-		int positionInArray = changed_position / 10;
+		// find positionInArray and positionInNumber
+		int positionInArray = id / 10;
 		int positionInNumber;
 		if (positionInArray == 0) {
-			positionInNumber = changed_position;
+			positionInNumber = id;
 		}
 		else {
-			positionInNumber = changed_position % (positionInArray * 10);
+			positionInNumber = id % (positionInArray * 10); 
 		}
 		
-		// determine which number corresponds to the determined location
-		int totalNumber = tempNumbers[positionInArray];
-		int[] numberDigits = new int[4];
+		// find out which character is changing
+		int x = tempNumbersArray[positionInArray];
+		int[] digits1 = new int[4];
 		for (int i = 3; i > -1; i--) {
-			numberDigits[i] = totalNumber % 10;
-			totalNumber /= 10;
+			digits1[i] = x % 10;
+			x /= 10;
 		}
-
-		int toCompareWith = numberDigits[positionInNumber];
+		int characterThatChanges = digits1[positionInNumber];
 		
-		// compare numbers and save other locations that need to be changed
+		// find which locations changes need to be made
+		List<Integer> locationsList = new ArrayList<Integer>();
 		for (int j = 0; j < 9; j++) {
-			int tempNumber = tempNumbers[j];
-			int[] tempDigits = new int[4];
+			int y = tempNumbersArray[j];
+			int[] digits2 = new int[4];
 			for (int k = 3; k > -1; k--) {
-				tempDigits[k] = tempNumber % 10;
-				totalNumber /= 10;
+				digits2[k] = y % 10;
+				y /= 10;
 			}
 			for (int m = 0; m < 4; m++) {
-				if (tempDigits[m] == toCompareWith) {
-					int tempLocation = (j * 10) + m;
+				int tempLocation = (j * 10) + m;
+				if ((digits2[m] == characterThatChanges) && (doNotAlter.contains(tempLocation) == false)) {
 					locationsList.add(tempLocation);
 				}
 			}
 		}
 		
-		// convert locationsList to int array
-		int[] returnLocations = new int[locationsList.size()];
-		for (int n = 0, p = locationsList.size(); n < p; n++) {
-			returnLocations[n] = locationsList.get(n);
-			System.out.println(returnLocations[n]);
+		// make changes in tempAnswersArray
+		for(int p = 0, q = locationsList.size(); p < q; p++) {
+			
+			int location = locationsList.get(p);
+			
+			// find positionInArray and positionInNumber
+			int positionInArray1 = location / 10;
+			int positionInNumber1;
+			if (positionInArray1 == 0) {
+				positionInNumber1 = location;
+			}
+			else {
+				positionInNumber1 = location % (positionInArray1 * 10); 
+			}
+			
+			// change the number
+			int numberToBeChanged = tempAnswersArray[positionInArray1];
+			int[] numberDigits = new int[4];
+			for (int i = 3; i > -1; i--) {
+				numberDigits[i] = numberToBeChanged % 10;
+				numberToBeChanged /= 10;
+			}
+			
+			numberDigits[positionInNumber1] = newVal;
+			int replaceNumber = 0;
+			int power = 3;
+			for (int j = 0; j < 4; j++) {
+				replaceNumber = replaceNumber + (numberDigits[j] * ((int)Math.pow(10, power)));
+				power -= 1;
+			}
+			tempAnswersArray[positionInArray1] = replaceNumber;
+			
 		}
 		
-		return returnLocations;
-		
-		
-	}
-	
-	public int[] changeAnswer(int[] answersArray, int newVal, int changed_position) {
-		
-		// determine which number needs to be altered using position in array and in number
-		int[] tempArray = answersArray;
-		int positionInArray = changed_position / 10;
-		int positionInNumber;
-		if (positionInArray == 0) {
-			positionInNumber = changed_position;
-		}
-		else {
-			positionInNumber = changed_position % (positionInArray * 10);
+		// make changes in tempNumberPickers
+		for (int b = 0, c = locationsList.size(); b < c; b++) {
+			int temp = ((locationsList.get(b)/ 10) * 4) + (locationsList.get(b) % 10);
+			NumberPicker np = tempNumberPickers.get(temp);
+			np.setValue(newVal);
 		}
 		
-		// change the number
-		int numberToBeChanged = tempArray[positionInArray];
-		int[] numberDigits = new int[4];
-		for (int i = 3; i > -1; i--) {
-			numberDigits[i] = numberToBeChanged % 10;
-			numberToBeChanged /= 10;
-		}
-		numberDigits[positionInNumber] = newVal;
-		int replaceNumber = 0;
-		int power = 3;
-		for (int j = 0; j < 4; j++) {
-			replaceNumber = replaceNumber + (numberDigits[j] * ((int)Math.pow(10, power)));
-			power -= 1;
-		}
-		
-		// replace the old number by the new number and return the array
-		tempArray[positionInArray] = replaceNumber;
-		return tempArray;
+		// return answersArray and numberPickers
+		return new Object[]{tempAnswersArray, tempNumberPickers};
 	}
 	
 	// method that checks whether game is finished
@@ -287,8 +290,8 @@ public class GamePlayActivity extends ActionBarActivity {
 	    finish();
 	}
   	
-  	public void onPause() {
-    	super.onPause();
+  	public void onStop() {
+    	super.onStop();
     	
     	// open SharedPreferences
 		Context mContext = getApplicationContext();
@@ -313,7 +316,7 @@ public class GamePlayActivity extends ActionBarActivity {
 	    
     	// save symbolsArray
     	for (int j = 0; j < 12; j++) {
-    		sEdit.putInt("symbol" + j, symbolsArray[j]);
+    		sEdit.putString("symbol" + j, symbolsArray[j]);
     	}
 	    
 	    // save userInput
