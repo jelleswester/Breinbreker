@@ -21,6 +21,8 @@
     <string name="symbol">+</string>
     <string name="symbol_equal">=</string>
     <string name="text">1234</string>
+    <string name="continue_game">Continue Game</string>
+    <string name="new_game">New Game</string>
     
 
 </resources>

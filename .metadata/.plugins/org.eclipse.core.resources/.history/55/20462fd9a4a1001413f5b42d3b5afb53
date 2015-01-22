@@ -1,0 +1,26 @@
+package nl.mprog.jelleswester.breinbreker;
+
+import android.widget.TextView;
+
+public class GameController {
+
+	// method that builds the game using the gameArrays
+	public void buildGame(String[] symbolsArray, String[] charactersArray) {
+		
+		// put strings in textViews
+		for (int i = 0; i < 9; i++) {
+			String textViewID = "textView" + i;
+			int resID = getResources().getIdentifier(textViewID, "id", "nl.mprog.jelleswester.breinbreker");
+			TextView text = (TextView) findViewById(resID);
+			text.setText(charactersArray[i]);
+		}
+		
+		// put symbols in textViews (+-x:=)
+		for (int j = 0; j < 12; j++) {
+			String symbolViewID = "symbolView" + j;
+			int resID = getResources().getIdentifier(symbolViewID, "id", "nl.mprog.jelleswester.breinbreker");
+			TextView symbol = (TextView) findViewById(resID);
+			symbol.setText(symbolsArray[j]);
+		}
+		}
+}

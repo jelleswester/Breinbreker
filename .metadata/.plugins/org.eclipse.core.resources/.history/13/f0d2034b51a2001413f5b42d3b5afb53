@@ -1,0 +1,203 @@
+package nl.mprog.jelleswester.breinbreker;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.text.InputFilter;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+public class YouWonActivity extends ActionBarActivity {
+	
+	// declare highScoreName & highScoreTime
+	String[] highScoreName;
+	long[] highScoreTime;
+	
+	// declare positionInRank
+	int positionInRank;
+	
+	// declare EditText
+	EditText et;
+	
+	// declare newTime
+	long newTime;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_you_won);
+		System.out.println("check1");
+		// set saved game check variable to false
+		Context mContext = getApplicationContext();
+		GameSavings gs = new GameSavings(mContext);
+		gs.setGameSaved(false);
+		System.out.println("check2");
+		// check whether time needs to come in highscore
+		Object[] highScoreArray = gs.getHighScore();
+		highScoreName = (String[]) highScoreArray[0];
+		highScoreTime = (long[]) highScoreArray[1];
+		System.out.println("check3");
+		// get elapsed time
+	    newTime = gs.getElapsedTime();
+	    System.out.println("check4");
+	    // calculate hours, mins, sec & msec
+	    int[] intTime = new int[3];
+	    String[] stringTime = new String[3];
+	    intTime[2] = (int) (newTime / 1000) % 60 ;
+	    intTime[1] = (int) ((newTime / (1000*60)) % 60);
+	    intTime[0] = (int) ((newTime / (1000*60*60)) % 24);
+	    for (int i = 0; i < 3; i++) {
+	    	if (String.valueOf(intTime[i]).length() == 1) {
+	    		stringTime[i] = "0" + String.valueOf(intTime[i]);	    		
+	    	}
+	    	else {
+	    		stringTime[i] = String.valueOf(intTime[i]);
+	    	}
+	    }
+	    System.out.println("check5");
+	    // set elapsed time
+	    TextView tv1 = (TextView) findViewById(R.id.textView2);
+	    tv1.setText("Your time: " + stringTime[0] + ":" + stringTime[1] + ":" + stringTime[2]);
+	    System.out.println("check6");
+	    // declare newHighScore
+	    boolean newHighScore = false;
+
+	    // loop through current highScoreTime array
+	    for (int j = highScoreTime.length - 1; j > -1; j--) {
+	    	System.out.println("highScoreTime.length = " + highScoreTime.length);
+	    	if (highScoreTime.length == 0) {
+	    		System.out.println("a");
+	    		newHighScore = true;
+	    		positionInRank = j;
+	    		break;
+	    	}
+	    	else if (newTime < highScoreTime[j]) {
+	    		System.out.println("b");
+	    		newHighScore = true;
+	    		positionInRank = j;
+	    	}
+	    	else {
+	    		System.out.println("c");
+	    		break;
+	    	}
+	    }
+	    System.out.println("check7");
+	    // if new high score, ask for name
+	    if (newHighScore) {
+
+	    	RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeLayout1);
+	    	System.out.println("check8");
+	    	// new textView
+	    	TextView tv2 = new TextView(mContext);
+	    	String askName = "Submit your highscore:";
+	    	tv2.setText(askName);
+	    	RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+	    	        ViewGroup.LayoutParams.WRAP_CONTENT);
+	    	lp1.addRule(RelativeLayout.BELOW, R.id.textView2);
+	    	tv2.setLayoutParams(lp1);
+	    	tv2.setId(123);
+	    	rl.addView(tv2);
+	    	System.out.println("check9");
+	    	// new editText
+	    	et = new EditText(mContext);
+	    	et.setHint("Name");
+	    	int maxLength = 15;
+	    	et.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(maxLength) });
+	    	RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+	    	        ViewGroup.LayoutParams.WRAP_CONTENT);
+	    	lp2.addRule(RelativeLayout.BELOW, 123);
+	    	et.setLayoutParams(lp2);
+	    	rl.addView(et);
+	    	System.out.println("check10");
+	    	// new save button
+	    	LinearLayout lnl = (LinearLayout) findViewById(R.id.linearLayout1);
+	    	Button saveButton = new Button(mContext);
+	    	saveButton.setText("save");
+	    	saveButton.setOnClickListener(new OnClickListener() {
+	    		
+	    		@Override
+	    		public void onClick(View view) {
+	    			System.out.println("check11");
+	    			// get newName
+	    			String newName = et.getText().toString();
+	    			System.out.println("check12");
+	    			// update highscores
+	    			Object[] newHighScores = addHighScore(highScoreName, highScoreTime, positionInRank, newName, newTime);
+	    			highScoreName = (String[]) newHighScores[0];
+	    			highScoreTime = (long[])  newHighScores[1];
+	    			System.out.println("check13");
+	    			// save new highscores
+	    			Context mContext = getApplicationContext();
+	    			GameSavings gs = new GameSavings(mContext);
+	    			gs.setHighScore(highScoreName, highScoreTime);
+	    			System.out.println("check14");
+	    			// open next activity
+	    			startActivity(new Intent(YouWonActivity.this, HighScoreActivity.class));
+	    	      	finish();
+	    		}
+	    	});
+	    	System.out.println("check15");
+	    	LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+	    			ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+	    	saveButton.setLayoutParams(lp3);
+	    	lnl.addView(saveButton);
+	    	System.out.println("check16");
+	    }  
+	}
+	
+	public Object[] addHighScore(String[] highScoreName, long[] highScoreTime, int positionInRank, String newName, long newTime) {
+		
+		// check for the number of highscores
+		int length;
+		if (highScoreName.length < 10) {
+			length = highScoreName.length + 1;
+		}
+		else {
+			length = 10;
+		}
+		
+		// declare tempNameArray & tempTimeArray
+		String[] tempNameArray = new String[length];
+		long[] tempTimeArray = new long[length];
+		
+		// add new score to rank
+		boolean newScoreInserted = false;
+		for (int i = 0, n = length; i < n; i++) {
+			if (i == positionInRank) {
+				tempNameArray[i] = newName;
+				tempTimeArray[i] = newTime;
+				newScoreInserted = true;
+			}
+			else if (newScoreInserted) {
+				tempNameArray[i] = highScoreName[i - 1];
+				tempTimeArray[i] = highScoreTime[i - 1];
+			}
+			else {
+				tempNameArray[i] = highScoreName[i];
+				tempTimeArray[i] = highScoreTime[i];
+			}
+		}
+		
+		// return new highScoreName and highScoreTime
+		return new Object[]{tempNameArray, tempTimeArray};
+	}
+	
+	// activates when clicking on back button
+   	public void backButton(View view) {
+      	startActivity(new Intent(this, StartScreenActivity.class));
+      	finish();
+   	}
+  	
+  	@Override
+	public void onBackPressed() {
+  		startActivity(new Intent(this, StartScreenActivity.class));
+      	finish();
+	}
+}

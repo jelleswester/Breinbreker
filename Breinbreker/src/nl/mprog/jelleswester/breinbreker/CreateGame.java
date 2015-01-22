@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 public class CreateGame {
 	
@@ -15,44 +14,28 @@ public class CreateGame {
 		c = context;
 	}
 	
-	// method that opens saved game array
+	// method that opens saved game arrays
 	public Object[] savedGame() {
 		
-	    // open SharedPreferences
-		SharedPreferences mPrefs = c.getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE);
-		
 		// declare symbolsArray, numbersArray, charactersArray & answersArray
-		String[] symbolsArray = new String[12];
-		int[] numbersArray = new int[9];
-		String[] charactersArray = new String[9];
-		int[] answersArray = new int[9];
+		String[] symbolsArray;
+		int[] numbersArray;
+		String[] charactersArray;
+		int[] answersArray;
 		
-		// get symbolsArray
-		for (int i = 0; i < 12; i++) {
-			symbolsArray[i] = mPrefs.getString("symbol" + i, "+");
-		}
-		
-		// get numbersArray
-		for (int j = 0; j < 9; j++) {
-			numbersArray[j] = mPrefs.getInt("number" + j, 0);
-		}
-		
-		// get charactersArray
-		for (int k = 0; k < 9; k++) {
-			charactersArray[k] = mPrefs.getString("character" + k, "A");
-		}
-		
-		// get answersArray
-		for (int m = 0; m < 9; m++) {
-			answersArray[m] = mPrefs.getInt("answer" + m, 0);
-		}
+		// get gameArrays
+		GameSavings gs = new GameSavings(c);
+		symbolsArray = gs.getSymbolsArray();
+		numbersArray = gs.getNumbersArray();
+		charactersArray = gs.getCharactersArray();
+		answersArray = gs.getAnswersArray();
 		
 		// return all game Arrays
 		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray};
 		
 	}
 	
-	// method that creates a new game array
+	// method that creates a new game arrays
 	public Object[] newGame() {
 		
 		// declare int[] signsArray,int[] numbersArray and String[] charactersArray
@@ -809,6 +792,7 @@ public class CreateGame {
 		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray};
 	}
 	
+	// method that converts numbersArray randomly to an charactersArray
 	public String[] createCharacters(int[] numbersArray) {
 		
 		// declare charactersArray
@@ -856,6 +840,7 @@ public class CreateGame {
 		return charactersArray;
 	}
 	
+	// method that converts numbers to symbols
 	public String[] createSymbols(int[] symbolsArray) {
 		
 		// declare tempArray and return Array
@@ -887,7 +872,7 @@ public class CreateGame {
 		return returnArray;
 	}
 	
-	// checks whether an integer is in an int array	
+	// checks whether an integer is in an integer array	
 	public boolean contains(final int[] array, final int key) {
         for (final int i : array) {
             if (i == key) {
