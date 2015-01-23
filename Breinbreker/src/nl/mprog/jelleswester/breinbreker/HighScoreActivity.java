@@ -43,7 +43,7 @@ public class HighScoreActivity extends ActionBarActivity {
 			int resID2 = getResources().getIdentifier(timeView, "id", "nl.mprog.jelleswester.breinbreker");
 	    	TextView time = (TextView) findViewById(resID2);
 			String[] tempTime = hs.convertTime(highScoreTime[j]);
-			time.setText("Your time: " + tempTime[0] + ":" + tempTime[1] + ":" + tempTime[2]);    	
+			time.setText(tempTime[0] + ":" + tempTime[1] + ":" + tempTime[2]);    	
 	    }
 	}
 	

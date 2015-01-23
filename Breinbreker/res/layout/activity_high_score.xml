@@ -6,44 +6,64 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#CEF6EC"
     tools:context="nl.mprog.jelleswester.breinbreker.HighScoreActivity" >
 	
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/high_score"
+        android:textSize="45sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
         android:stretchColumns="*" >
 
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView0"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView0"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView0"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView1"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView1"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView1"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView2"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView2"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView2"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
@@ -132,6 +152,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="backButton"
+        android:background="@drawable/button_shape"
+        android:textColor="@color/white"
         android:text="@string/back" />
 
 </RelativeLayout>

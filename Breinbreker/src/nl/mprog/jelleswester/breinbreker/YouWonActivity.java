@@ -2,6 +2,7 @@ package nl.mprog.jelleswester.breinbreker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputFilter;
@@ -56,6 +57,7 @@ public class YouWonActivity extends ActionBarActivity {
 	    // set elapsed time
 	    TextView tv1 = (TextView) findViewById(R.id.textView2);
 	    tv1.setText("Your time: " + time[0] + ":" + time[1] + ":" + time[2]);
+	    tv1.setTextSize(20);
 	    
 	    // declare newHighScore
 	    boolean newHighScore = false;
@@ -77,6 +79,8 @@ public class YouWonActivity extends ActionBarActivity {
 	    	TextView tv2 = new TextView(mContext);
 	    	String askName = "Submit your highscore:";
 	    	tv2.setText(askName);
+	    	tv2.setTextSize(20);
+	    	tv2.setTextColor(Color.parseColor("#000000"));
 	    	RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 	    	        ViewGroup.LayoutParams.WRAP_CONTENT);
 	    	lp1.addRule(RelativeLayout.BELOW, R.id.textView2);
@@ -89,7 +93,8 @@ public class YouWonActivity extends ActionBarActivity {
 	    	et.setHint("Name");
 	    	int maxLength = 15;
 	    	et.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(maxLength) });
-	    	RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+	    	et.setSingleLine();
+	    	RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
 	    	        ViewGroup.LayoutParams.WRAP_CONTENT);
 	    	lp2.addRule(RelativeLayout.BELOW, 123);
 	    	et.setLayoutParams(lp2);
@@ -99,6 +104,8 @@ public class YouWonActivity extends ActionBarActivity {
 	    	LinearLayout lnl = (LinearLayout) findViewById(R.id.linearLayout1);
 	    	Button saveButton = new Button(mContext);
 	    	saveButton.setText("save");
+	    	saveButton.setBackgroundResource(R.drawable.button_shape);
+	    	saveButton.setTextColor(getResources().getColor(R.color.white));
 	    	saveButton.setOnClickListener(new OnClickListener() {
 	    		
 	    		@Override

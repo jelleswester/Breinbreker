@@ -8,4 +8,8 @@
 <fullyQualifiedTypeName name="android.widget.LinearLayout.LayoutParams"/>
 <fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
 <fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.R.id"/>
+<fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.R.color"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.content.DialogInterface.OnKeyListener"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
 </qualifiedTypeNameHistroy>

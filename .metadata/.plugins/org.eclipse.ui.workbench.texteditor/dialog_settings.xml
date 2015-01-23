@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Syst" key="selection"/>
+		<item value="20sp" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="25sp"/>
+			<item value="system"/>
+			<item value="width"/>
+			<item value="symbolView0"/>
 			<item value="syst"/>
 			<item value="s"/>
 			<item value="gs"/>
 			<item value="GameSaved"/>
-			<item value="shared"/>
-			<item value="gamesavings"/>
-			<item value="sethi"/>
-			<item value="set"/>
 		</list>
 		<list key="replacehistory">
+			<item value="20sp"/>
 			<item value="signsArray"/>
 		</list>
 	</section>

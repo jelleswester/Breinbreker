@@ -73,10 +73,30 @@ public class GamePlayActivity extends ActionBarActivity {
 		
 		// put characters in TextViews
 		for (int i = 0; i < 9; i++) {
-			String textViewID = "textView" + i;
-			int resID = getResources().getIdentifier(textViewID, "id", "nl.mprog.jelleswester.breinbreker");
-			TextView text = (TextView) findViewById(resID);
-			text.setText(charactersArray[i]);
+			
+			// get the string from charactersArray
+			String temp = charactersArray[i];
+			
+			// reverse the string and change into char array
+			String reverse = new StringBuilder(new String(temp)).reverse().toString();
+			char[] temp1 = reverse.toCharArray();
+			int count = 0;
+			for (int k = 3; k > -1; k--){
+				
+				// find textView by id
+				String textViewID = "characterView" + i + "_" + k;
+				int resID = getResources().getIdentifier(textViewID, "id", "nl.mprog.jelleswester.breinbreker");
+				TextView text = (TextView) findViewById(resID);
+				
+				// set character if there is any (string can be shorter than four)
+				if (temp1.length > count) {
+					text.setText(String.valueOf(temp1[count]));
+				}
+				else {
+					text.setText(" ");
+				}
+				count += 1;
+			}
 		}
 		
 		// put symbols in TextViews (+-x:=)

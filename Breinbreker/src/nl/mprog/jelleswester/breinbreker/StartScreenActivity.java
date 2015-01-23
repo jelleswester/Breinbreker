@@ -25,8 +25,21 @@ public class StartScreenActivity extends ActionBarActivity {
         continueButton.setEnabled(saved_game);
     }
     
+    // activates when clicking on continue button
+   	public void continueButton(View view) {
+      	startActivity(new Intent(this, GamePlayActivity.class));
+      	finish();
+   	}
+    
     // activates when clicking on start button
   	public void startButton(View view) {
+  		
+  		// set gameSaved on false
+  		Context mContext = getApplicationContext();
+     	GameSavings gs = new GameSavings(mContext);
+     	gs.setGameSaved(false);
+  		
+  		// start GamePlayActivity
      	startActivity(new Intent(this, GamePlayActivity.class));
      	finish();
   	}

@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context="nl.mprog.jelleswester.breinbreker.StartScreenActivity" >
 
     <TextView
@@ -15,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="@string/brein_breker"
-        android:textSize="30sp" />
+        android:textSize="45sp" />
 
     <Button
         android:id="@+id/highScoreButton"
@@ -24,6 +25,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="highScoreButton"
+        android:background="@drawable/button_shape"
+        android:textColor="@color/white"
         android:text="@string/high_score" />
 
     <Button
@@ -33,6 +36,8 @@
         android:layout_above="@+id/highScoreButton"
         android:layout_alignLeft="@+id/highScoreButton"
         android:onClick="startButton"
+        android:background="@drawable/button_shape"
+        android:textColor="@color/white"
         android:text="@string/new_game" />
 
     <Button
@@ -41,7 +46,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/newGameButton"
         android:layout_alignLeft="@+id/newGameButton"
-        android:onClick="startButton"
+        android:onClick="continueButton"
+        android:background="@drawable/button_shape"
+        android:textColor="@color/white"
         android:text="@string/continue_game" />
 
 </RelativeLayout>

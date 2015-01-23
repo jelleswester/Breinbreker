@@ -1,0 +1,883 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#CEF6EC"
+    tools:context="nl.mprog.jelleswester.breinbreker.GamePlayActivity" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*" >
+
+        <TableRow>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView0_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker0_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView0_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker0_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView0_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker0_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView0_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker0_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1" >
+		        
+		        <TextView
+		        	android:id="@+id/symbolView0"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:text="+"
+		        	android:textSize="25sp"
+		        	android:layout_centerInParent="true" />
+		    </RelativeLayout>
+		    <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView1_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker1_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView1_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker1_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView1_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker1_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView1_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker1_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1" >
+		        
+		        <TextView
+		        	android:id="@+id/symbolView1"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:text="+"
+		        	android:textSize="25sp"
+		        	android:layout_centerInParent="true" />
+		    </RelativeLayout>
+		    <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView2_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker2_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView2_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker2_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView2_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker2_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView2_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker2_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+        </TableRow>
+        <TableRow>
+        	<TableRow>
+        	<RelativeLayout>
+		        <TextView
+		            android:id="@+id/symbolView2"
+		            android:text="@string/symbol"
+		            android:layout_width="fill_parent"
+		            android:layout_centerInParent="true" />
+	        </RelativeLayout>
+	        <TextView
+	            android:text=""
+	            android:layout_width="fill_parent" />
+	        <RelativeLayout>
+		        <TextView
+		            android:id="@+id/symbolView3"
+		            android:text="@string/symbol"
+		            android:layout_width="fill_parent"
+		            android:layout_centerInParent="true" />
+		    </RelativeLayout>
+	        <TextView
+	            android:text=""
+	            android:layout_width="fill_parent" />
+	        <RelativeLayout>
+		        <TextView
+		            android:id="@+id/symbolView4"
+		            android:text="@string/symbol"
+		            android:layout_width="fill_parent"
+		            android:layout_centerInParent="true" />
+	        </RelativeLayout>
+	    </TableRow>
+	    <TableRow>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView3_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker3_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView3_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker3_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView3_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker3_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView3_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker3_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1" >
+		        
+		        <TextView
+		        	android:id="@+id/symbolView5"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:text="+"
+		        	android:textSize="25sp"
+		        	android:layout_centerInParent="true" />
+		    </RelativeLayout>
+		    <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView4_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker4_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView4_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker4_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView4_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker4_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView4_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker4_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1" >
+		        
+		        <TextView
+		        	android:id="@+id/symbolView6"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:text="+"
+		        	android:textSize="25sp"
+		        	android:layout_centerInParent="true" />
+		    </RelativeLayout>
+		    <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView5_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker5_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView5_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker5_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView5_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker5_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView5_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker5_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+        </TableRow>
+        <TableRow>
+        	<TableRow>
+        	<RelativeLayout>
+		        <TextView
+		            android:id="@+id/symbolView7"
+		            android:text="@string/symbol"
+		            android:layout_width="fill_parent"
+		            android:layout_centerInParent="true" />
+	        </RelativeLayout>
+	        <TextView
+	            android:text=""
+	            android:layout_width="fill_parent" />
+	        <RelativeLayout>
+		        <TextView
+		            android:id="@+id/symbolView8"
+		            android:text="@string/symbol"
+		            android:layout_width="fill_parent"
+		            android:layout_centerInParent="true" />
+		    </RelativeLayout>
+	        <TextView
+	            android:text=""
+	            android:layout_width="fill_parent" />
+	        <RelativeLayout>
+		        <TextView
+		            android:id="@+id/symbolView9"
+		            android:text="@string/symbol"
+		            android:layout_width="fill_parent"
+		            android:layout_centerInParent="true" />
+	        </RelativeLayout>
+	    </TableRow>
+	    <TableRow>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView6_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker6_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView6_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker6_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView6_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker6_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView6_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker6_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1" >
+		        
+		        <TextView
+		        	android:id="@+id/symbolView10"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:text="+"
+		        	android:textSize="25sp"
+		        	android:layout_centerInParent="true" />
+		    </RelativeLayout>
+		    <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView7_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker7_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView7_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker7_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView7_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker7_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView7_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker7_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1" >
+		        
+		        <TextView
+		        	android:id="@+id/symbolView11"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:text="+"
+		        	android:textSize="25sp"
+		        	android:layout_centerInParent="true" />
+		    </RelativeLayout>
+		    <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView8_0"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker8_0"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView8_1"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker8_1"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView8_2"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker8_2"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:orientation="vertical">
+	                
+	                <TextView
+	                	android:id="@+id/characterView8_3"
+	                    android:layout_width="30px"
+	                    android:layout_height="wrap_content"
+	                    android:text="A"
+	                    android:textSize="25sp" />
+	                
+	                <NumberPicker
+	                	android:id="@+id/numberPicker8_3"
+				        android:layout_width="30px"
+				        android:layout_height="90px" />
+	            </LinearLayout>
+            </LinearLayout>
+        </TableRow>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+    
+		<Button
+		    android:id="@+id/backButton"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/back"
+		    android:background="@drawable/button_shape"
+        	android:textColor="@color/white"
+		    android:onClick="backButton" />
+		
+		<Button
+		    android:id="@+id/youWonButton"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/you_won"
+		    android:background="@drawable/button_shape"
+        	android:textColor="@color/white"
+		    android:onClick="youWonButton" />
+    
+    </LinearLayout>
+
+</RelativeLayout>
