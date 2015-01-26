@@ -1147,6 +1147,7 @@ containing a value of this type.
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
         public static final int highScoreButton=0x7f0500b1;
+        public static final int hintButton=0x7f050091;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
@@ -1266,7 +1267,6 @@ containing a value of this type.
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
         public static final int withText=0x7f05000c;
-        public static final int youWonButton=0x7f050091;
     }
     public static final class integer {
         /**  The maximum number of action buttons that should be permitted within
@@ -1384,6 +1384,7 @@ containing a value of this type.
         public static final int hello_world=0x7f0a000e;
         public static final int high_score=0x7f0a0015;
         public static final int high_score_entry=0x7f0a001a;
+        public static final int hint=0x7f0a0023;
         public static final int new_game=0x7f0a0022;
         public static final int start_game=0x7f0a0014;
         public static final int symbol=0x7f0a001e;

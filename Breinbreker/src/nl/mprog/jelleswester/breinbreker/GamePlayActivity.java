@@ -1,6 +1,7 @@
 package nl.mprog.jelleswester.breinbreker;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GamePlayActivity extends ActionBarActivity {
 	
@@ -27,6 +29,10 @@ public class GamePlayActivity extends ActionBarActivity {
 	
 	// create ArrayList doNotAlter (contains locations of disabled numberpickers)
 	ArrayList<Integer> doNotAlter = new ArrayList<Integer>();
+	
+	// hint variables
+	long hintNumber = 0;
+	ArrayList<Integer> givenHints = new ArrayList<Integer>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +182,63 @@ public class GamePlayActivity extends ActionBarActivity {
 			}
 		}
 	}
+	
+	// activates when hint button is pressed
+	public void hintButton(View view) {
+		
+		// calculate timePenalty
+		long timePenalty = 60000 + (hintNumber * 2);
+		
+		// update hintNumber
+		hintNumber += 1;
+		
+		// boolean newHint
+		boolean newHint = false;
+		
+		// select randomly a new hint
+		int inArray = 0;
+		int inNumber = 0;
+		int chosenNumber = 0;
+		while (!newHint) {
+			
+			// generate random number between 0-9
+			Random rand = new Random();
+			inArray = rand.nextInt(9);
+			int chosenTotal = numbersArray[inArray];
+			int maxPossible = String.valueOf(chosenTotal).length();
+			
+			// generate random number between 0 and maxPossible
+			inNumber = rand.nextInt(maxPossible);
+			
+			// check which number randomly was selected
+			int[] digits = new int[maxPossible];
+			for (int i = maxPossible; i > -1; i--) {
+				digits[i] = chosenTotal % 10;
+				chosenTotal /= 10;
+			}
+			chosenNumber = digits[inNumber];
+			
+			if (!givenHints.contains(chosenNumber)) {
+				newHint = true;
+				givenHints.add(chosenNumber);
+			}
+		}
+		
+		// change values in all game arrays ///// TODO TODO inNUMBER IS INCORRECT
+		int id = (inArray * 10) + inNumber;
+		GameController game = new GameController();
+		game.changeAnswer(numberPickers, answersArray, numbersArray, chosenNumber, id, doNotAlter);
+		
+		// add time penalty to elapsed time
+		timeElapsed += timePenalty;
+		
+		// toast the time penalty
+		Context context = getApplicationContext();
+		CharSequence text = "Time penalty: " + timePenalty;
+		int duration = Toast.LENGTH_SHORT;
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
+	}
   	
   	// activates when activity is ending
 	@Override
@@ -197,11 +260,11 @@ public class GamePlayActivity extends ActionBarActivity {
       	finish();
    	}
 	
-  	// activates when youWon button is pressed
-  	public void youWonButton(View view) {
-  		startActivity(new Intent(this, YouWonActivity.class));
-     	finish();
-  	}
+//  	// activates when youWon button is pressed
+//  	public void youWonButton(View view) {
+//  		startActivity(new Intent(this, YouWonActivity.class));
+//     	finish();
+//  	}
   	
   	// activates when androids back button is pressed
   	@Override

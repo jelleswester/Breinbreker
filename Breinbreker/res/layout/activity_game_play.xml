@@ -893,14 +893,14 @@
 		    android:onClick="backButton" />
 		
 		<Button
-		    android:id="@+id/youWonButton"
+		    android:id="@+id/hintButton"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1"
-		    android:text="@string/you_won"
+		    android:text="@string/hint"
 		    android:background="@drawable/button_shape"
         	android:textColor="@color/white"
-		    android:onClick="youWonButton" />
+		    android:onClick="hintButton" />
     
     </LinearLayout>
 
