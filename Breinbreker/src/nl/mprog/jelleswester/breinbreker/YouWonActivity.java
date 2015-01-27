@@ -1,5 +1,7 @@
 package nl.mprog.jelleswester.breinbreker;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,11 +11,15 @@ import android.text.InputFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.parse.Parse;
+import com.parse.ParseObject;
 
 public class YouWonActivity extends ActionBarActivity {
 	
@@ -30,20 +36,24 @@ public class YouWonActivity extends ActionBarActivity {
 	// declare newTime
 	long newTime;
 	
+	List<Integer> score;
+	String name;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().setFlags(
+	            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+	            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_you_won);
+		getActionBar().hide();
 		
 		// set saved game check variable to false
 		Context mContext = getApplicationContext();
 		GameSavings gs = new GameSavings(mContext);
 		gs.setGameSaved(false);
-		boolean test = gs.getGameSaved();
-		System.out.println("game_saved_yw = " + test);
 		
 		// check whether time needs to come in highscore
-		Object[] highScoreArray = gs.getHighScore();
+		Object[] highScoreArray = gs.getLocalHighScore();
 		highScoreName = (String[]) highScoreArray[0];
 		highScoreTime = (long[]) highScoreArray[1];
 		
@@ -51,7 +61,7 @@ public class YouWonActivity extends ActionBarActivity {
 	    newTime = gs.getElapsedTime();
 	    
 	    // convert time to string array containing hours, mins, secs
-	    HighScoreController hs = new HighScoreController();
+	    HighScoreController hs = new HighScoreController(mContext);
 	    String[] time = hs.convertTime(newTime);
 	    
 	    // set elapsed time
@@ -115,13 +125,14 @@ public class YouWonActivity extends ActionBarActivity {
 	    			String newName = et.getText().toString();
 	    			
 	    			// update highscores
-	    			HighScoreController hs = new HighScoreController();
-	    			Object[] newHighScores = hs.addHighScore(highScoreName, highScoreTime, positionInRank, newName, newTime);
+	    			Context mContext = getApplicationContext();
+	    			HighScoreController hs = new HighScoreController(mContext);
+	    			Object[] newHighScores = hs.addLocalHighScore(highScoreName, highScoreTime, positionInRank, newName, newTime);
 	    			highScoreName = (String[]) newHighScores[0];
 	    			highScoreTime = (long[])  newHighScores[1];
+	    			hs.addOnlineHighScore(newTime, newName);
 	    			
 	    			// save new highscores
-	    			Context mContext = getApplicationContext();
 	    			GameSavings gs = new GameSavings(mContext);
 	    			gs.setHighScore(highScoreName, highScoreTime);
 	    			

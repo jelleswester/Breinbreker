@@ -7,9 +7,14 @@
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout.LayoutParams"/>
 <fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
-<fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.R.id"/>
 <fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.R.color"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface.OnKeyListener"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="com.parse.ParseQuery"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.parse.FindCallback"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.parse.ParseException"/>
+<fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.OnLoadingFinishedListener"/>
+<fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.R.id"/>
 </qualifiedTypeNameHistroy>

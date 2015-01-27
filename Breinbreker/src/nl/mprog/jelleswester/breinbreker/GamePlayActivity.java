@@ -1,13 +1,13 @@
 package nl.mprog.jelleswester.breinbreker;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,13 +31,17 @@ public class GamePlayActivity extends ActionBarActivity {
 	ArrayList<Integer> doNotAlter = new ArrayList<Integer>();
 	
 	// hint variables
-	long hintNumber = 0;
-	ArrayList<Integer> givenHints = new ArrayList<Integer>();
+	long hintNumber;
+	ArrayList<Integer> givenHints;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().setFlags(
+	            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+	            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_game_play);
+		getActionBar().hide();
 		
 		// get saved game from savings
 		Context mContext = getApplicationContext();
@@ -66,9 +70,16 @@ public class GamePlayActivity extends ActionBarActivity {
 		numbersArray = (int[]) gameArrays[1];
 		charactersArray = (String[]) gameArrays[2];
 		answersArray = (int[]) gameArrays[3];
+		long[] temp = (long[]) gameArrays[4];
+		hintNumber = temp[0];
+		givenHints = (ArrayList<Integer>) gameArrays[5];
 		
 		// build the game
 		buildGame(symbolsArray, charactersArray);
+		
+		for (int z = 0; z < 9; z ++) {
+			System.out.println(numbersArray[z]);
+		}
 		
 		// start counting the time
 		startTime = System.currentTimeMillis();	
@@ -154,29 +165,25 @@ public class GamePlayActivity extends ActionBarActivity {
 				}
 				np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 				np.setWrapSelectorWheel(true);
-				
-				// when NumberPicker gets scrolled
-				np.setOnScrollListener(new NumberPicker.OnScrollListener() {
-
-			        @Override
-			        public void onScrollStateChange(NumberPicker picker, int scrollState) {
-			            if (scrollState == NumberPicker.OnScrollListener.SCROLL_STATE_IDLE) {
-			            	
-			            	// change answersArray and numberPickers accordingly
-			            	GameController game = new GameController();
-			            	Object[] changedArrays = game.changeAnswer(numberPickers, answersArray, numbersArray, picker.getValue(), picker.getId(), doNotAlter);
-			            	answersArray = (int[])changedArrays[0];
-			            	numberPickers = (ArrayList<NumberPicker>)changedArrays[1];
+				np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+					@Override
+					public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+						
+						// change answersArray and numberPickers accordingly
+						GameController game = new GameController();
+		            	Object[] changedArrays = game.changeAnswer(numberPickers, answersArray, numbersArray, picker.getValue(), picker.getId(), doNotAlter);
+		            	answersArray = (int[])changedArrays[0];
+		            	numberPickers = (ArrayList<NumberPicker>)changedArrays[1];
 							
-							// check whether the game is finished
-			            	if (game.wonGame(numbersArray,answersArray)) {
-								startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
-					         	finish();
-							}
-			            }
-			        }
-			    });
-				
+						// check whether the game is finished
+		            	if (game.wonGame(numbersArray,answersArray)) {
+							startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
+				         	finish();
+						}
+					      
+					}
+				});
+
 				// add NumberPicker to numberPickers ArrayList
 				numberPickers.add(np);
 			}
@@ -186,55 +193,49 @@ public class GamePlayActivity extends ActionBarActivity {
 	// activates when hint button is pressed
 	public void hintButton(View view) {
 		
-		// calculate timePenalty
-		long timePenalty = 60000 + (hintNumber * 2);
+		// open game controller and get new hint check
+		GameController game = new GameController();
+		boolean newHint = game.newHint(givenHints);
 		
-		// update hintNumber
-		hintNumber += 1;
+		// get context in order to toast message
+		Context context = getApplicationContext();
+		CharSequence text;
 		
-		// boolean newHint
-		boolean newHint = false;
-		
-		// select randomly a new hint
-		int inArray = 0;
-		int inNumber = 0;
-		int chosenNumber = 0;
-		while (!newHint) {
+		// if a new hint should be given
+		if (newHint) {
 			
-			// generate random number between 0-9
-			Random rand = new Random();
-			inArray = rand.nextInt(9);
-			int chosenTotal = numbersArray[inArray];
-			int maxPossible = String.valueOf(chosenTotal).length();
+			// give hint and get changed variables
+			Object[] temp = game.giveHint(numbersArray, answersArray, numberPickers, givenHints, hintNumber, doNotAlter);
+			answersArray = (int[]) temp[0];
+			numberPickers = (ArrayList<NumberPicker>) temp[1];
+			long[] tempTimePenalty = (long[]) temp[2];
+			long timePenalty = tempTimePenalty[0];
+			hintNumber = tempTimePenalty[1];
+			givenHints = (ArrayList<Integer>) temp[3];
 			
-			// generate random number between 0 and maxPossible
-			inNumber = rand.nextInt(maxPossible);
+			// set message
+			Context mContext = getApplicationContext();
+			HighScoreController hs = new HighScoreController(mContext);
+			String [] time = hs.convertTime(timePenalty);
+			text = "Time penalty: " + time[0] + ":" + time[1] + ":" + time[2];
 			
-			// check which number randomly was selected
-			int[] digits = new int[maxPossible];
-			for (int i = maxPossible; i > -1; i--) {
-				digits[i] = chosenTotal % 10;
-				chosenTotal /= 10;
+			// add time penalty to elapsed time
+			timeElapsed += timePenalty;
+			
+			// check whether game is finished
+			if (game.wonGame(numbersArray, answersArray)) {
+				startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
+	         	finish();
 			}
-			chosenNumber = digits[inNumber];
 			
-			if (!givenHints.contains(chosenNumber)) {
-				newHint = true;
-				givenHints.add(chosenNumber);
-			}
+		}
+		else {
+	
+			// set message
+			text = "No more hints";
 		}
 		
-		// change values in all game arrays ///// TODO TODO inNUMBER IS INCORRECT
-		int id = (inArray * 10) + inNumber;
-		GameController game = new GameController();
-		game.changeAnswer(numberPickers, answersArray, numbersArray, chosenNumber, id, doNotAlter);
-		
-		// add time penalty to elapsed time
-		timeElapsed += timePenalty;
-		
-		// toast the time penalty
-		Context context = getApplicationContext();
-		CharSequence text = "Time penalty: " + timePenalty;
+		// toast message
 		int duration = Toast.LENGTH_SHORT;
 		Toast toast = Toast.makeText(context, text, duration);
 		toast.show();
@@ -251,7 +252,7 @@ public class GamePlayActivity extends ActionBarActivity {
 	    // save the game
 	    Context mContext = getApplicationContext();
 	    GameSavings gs = new GameSavings(mContext);
-	    gs.saveGame(numbersArray, answersArray, charactersArray, symbolsArray, timeElapsed);
+	    gs.saveGame(numbersArray, answersArray, charactersArray, symbolsArray, timeElapsed, hintNumber, givenHints);
 	}
   	
   	// activates when back button is pressed
@@ -260,11 +261,11 @@ public class GamePlayActivity extends ActionBarActivity {
       	finish();
    	}
 	
-//  	// activates when youWon button is pressed
-//  	public void youWonButton(View view) {
-//  		startActivity(new Intent(this, YouWonActivity.class));
-//     	finish();
-//  	}
+  	// activates when youWon button is pressed
+  	public void youWonButton(View view) {
+  		startActivity(new Intent(this, YouWonActivity.class));
+     	finish();
+  	}
   	
   	// activates when androids back button is pressed
   	@Override

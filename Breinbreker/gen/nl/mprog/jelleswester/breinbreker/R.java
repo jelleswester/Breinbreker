@@ -1094,7 +1094,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f0500b7;
+        public static final int action_settings=0x7f0500b8;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int backButton=0x7f050090;
@@ -1137,7 +1137,7 @@ containing a value of this type.
         public static final int characterView8_3=0x7f05008e;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
-        public static final int continueGameButton=0x7f0500b3;
+        public static final int continueGameButton=0x7f0500b5;
         public static final int default_activity_button=0x7f050028;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
@@ -1146,14 +1146,14 @@ containing a value of this type.
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
-        public static final int highScoreButton=0x7f0500b1;
+        public static final int highScoreButton=0x7f0500b3;
         public static final int hintButton=0x7f050091;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050027;
-        public static final int linearLayout1=0x7f0500b6;
+        public static final int linearLayout1=0x7f0500b1;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;
         public static final int middle=0x7f050012;
@@ -1168,7 +1168,7 @@ containing a value of this type.
         public static final int nameView8=0x7f0500ac;
         public static final int nameView9=0x7f0500af;
         public static final int never=0x7f050009;
-        public static final int newGameButton=0x7f0500b2;
+        public static final int newGameButton=0x7f0500b4;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
         public static final int numberPicker0_0=0x7f05003d;
@@ -1217,10 +1217,11 @@ containing a value of this type.
         public static final int numberView7=0x7f0500a8;
         public static final int numberView8=0x7f0500ab;
         public static final int numberView9=0x7f0500ae;
+        public static final int otherHighScoreButton=0x7f0500b2;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
-        public static final int relativeLayout1=0x7f0500b4;
+        public static final int relativeLayout1=0x7f0500b6;
         public static final int search_badge=0x7f050032;
         public static final int search_bar=0x7f050031;
         public static final int search_button=0x7f050033;
@@ -1251,7 +1252,7 @@ containing a value of this type.
         public static final int symbolView9=0x7f050075;
         public static final int tabMode=0x7f050002;
         public static final int textView1=0x7f050092;
-        public static final int textView2=0x7f0500b5;
+        public static final int textView2=0x7f0500b7;
         public static final int timeView0=0x7f050095;
         public static final int timeView1=0x7f050098;
         public static final int timeView2=0x7f05009b;

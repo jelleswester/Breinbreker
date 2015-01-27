@@ -1,5 +1,7 @@
 package nl.mprog.jelleswester.breinbreker;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -21,7 +23,7 @@ public class GameSavings {
 	}
 	
 	// method that saves all game arrays and the elapsed time
-	public void saveGame(int[] numbersArray, int[] answersArray, String[] charactersArray, String[] symbolsArray, long timeElapsed) {
+	public void saveGame(int[] numbersArray, int[] answersArray, String[] charactersArray, String[] symbolsArray, long timeElapsed, long hintNumber, ArrayList<Integer> givenHints) {
 	    
 	    // set saved_game to true
 	    sEdit.putBoolean("saved_game", true);
@@ -45,6 +47,17 @@ public class GameSavings {
 	    for (int k = 0; k < 9; k++) {
 	    	sEdit.putInt("answer" + k, answersArray[k]);
 	    }
+	    
+	    // save hintNumber
+	    sEdit.putLong("hint_number", hintNumber);
+	    
+	    // save givenHints arraylist
+	    for (int l = 0; l < givenHints.size(); l++) {
+	    	sEdit.putInt("hint" + l, givenHints.get(l));
+	    }
+	    
+	    // save length of givenHints
+	    sEdit.putInt("length_hints_array", givenHints.size());
 	    
 	    // commit saved game arrays
 	    sEdit.commit();
@@ -131,7 +144,7 @@ public class GameSavings {
 	}
 	
 	// method that gets the highscore arrays
-	public Object[] getHighScore() {
+	public Object[] getLocalHighScore() {
 		
 		// get number of highscores stored
 		int numberOfScores = mPrefs.getInt("number_high_scores", 0);
@@ -154,5 +167,35 @@ public class GameSavings {
 	public int getNumberOfScores() {
 		int numberOfScores = mPrefs.getInt("number_high_scores", 0);
 		return numberOfScores;
+	}
+	
+	// method that gets the number of hints given
+	public long getHintNumber() {
+		long hintNumber = mPrefs.getLong("hint_number", 0);
+		return hintNumber;
+	}
+	
+	// method that gets the hints given
+	public ArrayList<Integer> getGivenHints() {
+		int hintNumber = mPrefs.getInt("length_hints_array", 0);
+		ArrayList<Integer> givenHints = new ArrayList<Integer>();
+		
+		if (hintNumber != 0) {
+			for (int i = 0; i < hintNumber; i++) {
+				givenHints.add(mPrefs.getInt("hint" + i, 0));
+			}
+		}
+		return givenHints;
+	}
+	
+	// method that sets the type of highscore to be displayed (0 is local; 1 is online)
+	public void setTypeOfHighScore(int number) {
+		sEdit.putInt("number_of_highscore", number);
+		sEdit.commit();
+	}
+	
+	public int getTypeOfHighScore() {
+		int number = mPrefs.getInt("number_of_highscore", 0); 
+		return number;
 	}
 }

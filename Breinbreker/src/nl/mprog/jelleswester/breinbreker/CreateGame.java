@@ -22,6 +22,8 @@ public class CreateGame {
 		int[] numbersArray;
 		String[] charactersArray;
 		int[] answersArray;
+		long[] hintNumber = new long[1];
+		ArrayList<Integer> givenHints;
 		
 		// get gameArrays
 		GameSavings gs = new GameSavings(c);
@@ -29,9 +31,11 @@ public class CreateGame {
 		numbersArray = gs.getNumbersArray();
 		charactersArray = gs.getCharactersArray();
 		answersArray = gs.getAnswersArray();
+		hintNumber[0] = gs.getHintNumber();
+		givenHints = gs.getGivenHints();
 		
 		// return all game Arrays
-		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray};
+		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray, hintNumber, givenHints};
 		
 	}
 	
@@ -788,8 +792,13 @@ public class CreateGame {
 		// create charactersArray
 		charactersArray = createCharacters(numbersArray);
 		
+		// create hintNumber & givenHints
+		long[] hintNumber = new long[1];
+		hintNumber[0] = 0;
+		ArrayList<Integer> givenHints = new ArrayList<Integer>();
+		
 		// return symbolsArray and numbersArray
-		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray};
+		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray, hintNumber, givenHints};
 	}
 	
 	// method that converts numbersArray randomly to an charactersArray

@@ -2,8 +2,11 @@ package nl.mprog.jelleswester.breinbreker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import android.content.Context;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 public class GameController {
 	
@@ -111,5 +114,81 @@ public class GameController {
 		
 		// return either true or false
 		return game_won;
+	}
+	
+	// method that checks whether new hint can be given (max 5 hints)
+	public boolean newHint(ArrayList<Integer> givenHints) {
+		if (givenHints.size() > 3) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	// method that generates and gives a hint
+	public Object[] giveHint(int[] numbersArray, int[] answersArray, ArrayList<NumberPicker> numberPickers, ArrayList<Integer> givenHints, long hintNumber, ArrayList<Integer> doNotAlter) {
+		
+		// calculate timePenalty
+		long tempTimePenalty;
+		if (hintNumber == 0) {
+			tempTimePenalty = 60000;
+		}
+		else {
+			tempTimePenalty = 60000 * (hintNumber * 2);
+		}
+		
+		// update hintNumber
+		hintNumber += 1;
+		
+		// boolean newHint
+		boolean newHint = false;
+		
+		// select randomly a new hint
+		int inArray = 0;
+		int inNumber = 0;
+		int chosenNumber = 0;
+		int chosenTotal = 0;
+		int maxPossible = 4;
+		while (!newHint) {
+			
+			// generate random number between 0-9
+			Random rand = new Random();
+			inArray = rand.nextInt(9);
+			chosenTotal = numbersArray[inArray];			
+			// generate random number between 0 and maxPossible
+			inNumber = rand.nextInt(3);
+			
+			// check which number randomly was selected
+			int[] digits = new int[4];
+			for (int i = 3; i > -1; i--) {
+				digits[i] = chosenTotal % 10;
+				chosenTotal /= 10;
+				System.out.println(digits[i]);
+			}
+			
+			chosenNumber = digits[inNumber];
+			
+			if (!givenHints.contains(chosenNumber)) {
+				newHint = true;
+				givenHints.add(chosenNumber);
+			}
+		}
+		
+		// change values in all game arrays
+		int id = (inArray * 10) + inNumber;
+		System.out.println("id = " + id);
+		System.out.println("number = " + chosenTotal);
+		System.out.println("innumber = " + inNumber);
+		System.out.println("number = " + chosenNumber);
+		Object[] changedArrays = changeAnswer(numberPickers, answersArray, numbersArray, chosenNumber, id, doNotAlter);
+		answersArray = (int[])changedArrays[0];
+    	numberPickers = (ArrayList<NumberPicker>)changedArrays[1];
+		
+		// return answersArray, numberPickers & timeElapsed
+    	long[] timePenalty = new long[2];
+    	timePenalty[0] = tempTimePenalty;
+    	timePenalty[1] = hintNumber;
+		return new Object[]{answersArray, numberPickers, timePenalty, givenHints};
 	}
 }

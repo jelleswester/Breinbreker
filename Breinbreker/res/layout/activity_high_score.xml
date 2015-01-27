@@ -69,91 +69,126 @@
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView3"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView3"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView3"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView4"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView4"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView4"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView5"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView5"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView5"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView6"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView6"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView6"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView7"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView7"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView7"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView8"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView8"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView8"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView9"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView9"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView9"
+	            android:textSize="20sp"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	</TableLayout>
-   
-    <Button
-        android:id="@+id/backButton"
+	
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="backButton"
-        android:background="@drawable/button_shape"
-        android:textColor="@color/white"
-        android:text="@string/back" />
+        android:layout_centerHorizontal="true" >
+	    <Button
+	        android:id="@+id/backButton"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:onClick="backButton"
+	        android:background="@drawable/button_shape"
+	        android:textColor="@color/white"
+	        android:text="@string/back" />
+	    <Button
+	        android:id="@+id/otherHighScoreButton" 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:onClick="otherHighScoreButton"
+	        android:background="@drawable/button_shape"
+	        android:textColor="@color/white" />
+    </LinearLayout>
 
 </RelativeLayout>

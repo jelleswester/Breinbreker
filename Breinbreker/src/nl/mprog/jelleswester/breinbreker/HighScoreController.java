@@ -1,6 +1,22 @@
 package nl.mprog.jelleswester.breinbreker;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 public class HighScoreController {
+	
+	Context c;
+	public HighScoreController (Context context) {
+		c = context;
+	}
 	
 	public int[] newHighScore(long[] highScoreTime, long newTime) {
 		
@@ -33,7 +49,7 @@ public class HighScoreController {
 	}
 	
 	// method that add a new highscore
-	public Object[] addHighScore(String[] highScoreName, long[] highScoreTime, int positionInRank, String newName, long newTime) {
+	public Object[] addLocalHighScore(String[] highScoreName, long[] highScoreTime, int positionInRank, String newName, long newTime) {
 		
 		// check for the number of highscores
 		int length;
@@ -70,6 +86,48 @@ public class HighScoreController {
 		return new Object[]{tempNameArray, tempTimeArray};
 	}
 	
+	// method that adds a new score to online saved highscores
+	public void addOnlineHighScore(long newTime, String newName) {
+
+  		Parse.initialize(c, "RP0VGv7DKp9CKbxwbsKrus6jTqhAmMfLMwqvMTUp", "JyXtiOn8o8uFkHckJdECIAa1RJLVY6zFuEYzd8AT");
+  		ParseObject gameScore = new ParseObject("HighScore");
+  		gameScore.put("score", newTime);
+  		gameScore.put("name", newName);
+  		gameScore.saveInBackground();
+	}
+	
+	// method that gets the top ten of highscores saved online
+	public void getOnlineHighScores(final OnLoadingFinishedListener listener) {
+		
+		// declare names and times
+		final ArrayList<String> names = new ArrayList<String>();
+      	final ArrayList<Long> times = new ArrayList<Long>();
+		
+      	// retrieve names and times from online saved highscores
+      	Parse.initialize(c, "RP0VGv7DKp9CKbxwbsKrus6jTqhAmMfLMwqvMTUp", "JyXtiOn8o8uFkHckJdECIAa1RJLVY6zFuEYzd8AT");
+      	ParseQuery<ParseObject> query = ParseQuery.getQuery("HighScore");
+  		query.orderByAscending("score");
+  		query.setLimit(10);
+  		query.findInBackground(new FindCallback<ParseObject>() {
+  		    public void done(List<ParseObject> scoreList, ParseException e) {
+  		        if (e == null) { 
+  		            for (int i = 0; i < scoreList.size(); i++) {
+  		            	ParseObject temp = scoreList.get(i);
+  		            	names.add(temp.getString("name"));
+  		            	times.add(temp.getLong("score"));
+   		            }
+  		            String[] highScoreName = names.toArray(new String[names.size()]);
+  		            long[] highScoreTime = new long[times.size()];
+
+  		            for (int j = 0; j < times.size(); j++) {
+  		            	highScoreTime[j] = (long) times.get(j);
+  		            }
+  		            
+  		            listener.onLoadingFinished(new Object[]{highScoreName,highScoreTime});
+  		        } 
+  		    }
+  		});
+	}
 	// method that converts integer time in string array with hours, mins & secs
 	public String[] convertTime(long newTime) {
 		
