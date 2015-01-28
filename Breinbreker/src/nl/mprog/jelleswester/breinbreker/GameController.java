@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import android.content.Context;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 public class GameController {
 	
 	// method that updates answersArray and numberPickers when NumberPicker was scrolled 
-	public Object[] changeAnswer(ArrayList<NumberPicker> numberPickers, int[] answersArray, int[] numbersArray, int newVal, int id, ArrayList<Integer>  doNotAlter) {
+	public Object[] changeAnswer(ArrayList<NumberPicker> numberPickers, int[] answersArray, int[] numbersArray, int newVal, int id, ArrayList<Integer>  doNotAlter, boolean isHint) {
 		
 		// declare tempAnswersArray, tempNumbersArray, tempNumberPickers
 		int[] tempAnswersArray = answersArray;
@@ -59,7 +57,7 @@ public class GameController {
 			
 			int location = locationsList.get(p);
 			
-			// find positionInArray and positionInNumber
+			// find positionInArray1 and positionInNumber1
 			int positionInArray1 = location / 10;
 			int positionInNumber1;
 			if (positionInArray1 == 0) {
@@ -93,32 +91,35 @@ public class GameController {
 			int temp = ((locationsList.get(b)/ 10) * 4) + (locationsList.get(b) % 10);
 			NumberPicker np = tempNumberPickers.get(temp);
 			np.setValue(newVal);
+			if (isHint) {
+				np.setEnabled(false);
+			}
 		}
 		
-		// return answersArray and numberPickers
+		// return tempAnswersArray and tempNumberPickers
 		return new Object[]{tempAnswersArray, tempNumberPickers};
 	}
 	
 	// method that checks whether game is finished
-	public boolean wonGame(int[] numbersArray, int[] userInput) {
+	public boolean wonGame(int[] numbersArray, int[] answersArray) {
 		
 		// declare boolean game_won
-		boolean game_won = true;
+		boolean gameWon = true;
 		
 		// check whether all answers are right
 		for (int i = 0; i < 9; i++) {
-			if (numbersArray[i] != userInput[i]) {
-				game_won = false;
+			if (numbersArray[i] != answersArray[i]) {
+				gameWon = false;
 			}
 		}
 		
 		// return either true or false
-		return game_won;
+		return gameWon;
 	}
 	
 	// method that checks whether new hint can be given (max 5 hints)
 	public boolean newHint(ArrayList<Integer> givenHints) {
-		if (givenHints.size() > 3) {
+		if (givenHints.size() > 4) {
 			return false;
 		}
 		else {
@@ -156,7 +157,8 @@ public class GameController {
 			Random rand = new Random();
 			inArray = rand.nextInt(9);
 			chosenTotal = numbersArray[inArray];			
-			// generate random number between 0 and maxPossible
+			
+			// generate random number between 0-3
 			inNumber = rand.nextInt(3);
 			
 			// check which number randomly was selected
@@ -164,28 +166,24 @@ public class GameController {
 			for (int i = 3; i > -1; i--) {
 				digits[i] = chosenTotal % 10;
 				chosenTotal /= 10;
-				System.out.println(digits[i]);
 			}
 			
 			chosenNumber = digits[inNumber];
 			
+			// check whether hint was already given
 			if (!givenHints.contains(chosenNumber)) {
 				newHint = true;
 				givenHints.add(chosenNumber);
 			}
 		}
 		
-		// change values in all game arrays
+		// change values in answersArray and numberPickers
 		int id = (inArray * 10) + inNumber;
-		System.out.println("id = " + id);
-		System.out.println("number = " + chosenTotal);
-		System.out.println("innumber = " + inNumber);
-		System.out.println("number = " + chosenNumber);
-		Object[] changedArrays = changeAnswer(numberPickers, answersArray, numbersArray, chosenNumber, id, doNotAlter);
+		Object[] changedArrays = changeAnswer(numberPickers, answersArray, numbersArray, chosenNumber, id, doNotAlter, true);
 		answersArray = (int[])changedArrays[0];
     	numberPickers = (ArrayList<NumberPicker>)changedArrays[1];
 		
-		// return answersArray, numberPickers & timeElapsed
+		// return answersArray, numberPickers, timePenalty and givenHints
     	long[] timePenalty = new long[2];
     	timePenalty[0] = tempTimePenalty;
     	timePenalty[1] = hintNumber;

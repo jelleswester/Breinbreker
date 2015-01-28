@@ -17,29 +17,34 @@ public class CreateGame {
 	// method that opens saved game arrays
 	public Object[] savedGame() {
 		
-		// declare symbolsArray, numbersArray, charactersArray & answersArray
-		String[] symbolsArray;
-		int[] numbersArray;
-		String[] charactersArray;
-		int[] answersArray;
-		long[] hintNumber = new long[1];
-		ArrayList<Integer> givenHints;
-		
-		// get gameArrays
+		// open GameSavings
 		GameSavings gs = new GameSavings(c);
-		symbolsArray = gs.getSymbolsArray();
-		numbersArray = gs.getNumbersArray();
-		charactersArray = gs.getCharactersArray();
-		answersArray = gs.getAnswersArray();
-		hintNumber[0] = gs.getHintNumber();
-		givenHints = gs.getGivenHints();
 		
-		// return all game Arrays
+		// get symbolsArray
+		String[] symbolsArray = gs.getSymbolsArray();
+		
+		// get numbersArray
+		int[] numbersArray = gs.getNumbersArray();
+		
+		// get charactersArray
+		String[] charactersArray = gs.getCharactersArray();
+		
+		// get answersArray
+		int[] answersArray = gs.getAnswersArray();
+		
+		// get hintNumber
+		long[] hintNumber = new long[1];
+		hintNumber[0] = gs.getHintNumber();
+		
+		// get givenHints ArrayList
+		ArrayList<Integer> givenHints = gs.getGivenHints();
+		
+		// return all
 		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray, hintNumber, givenHints};
 		
 	}
 	
-	// method that creates a new game arrays
+	// method that creates a new game
 	public Object[] newGame() {
 		
 		// declare int[] signsArray,int[] numbersArray and String[] charactersArray
@@ -48,11 +53,11 @@ public class CreateGame {
 		String[] charactersArray = new String[9];
 		int[] answersArray = new int[]{0,0,0,0,0,0,0,0,0};
 		
-		// declare int[] temp_number
-		int[] temp_number = new int[4];
+		// declare int[] tempNumber
+		int[] tempNumber = new int[4];
 		
-		// declare boolean right_puzzle
-		boolean right_puzzle = false;
+		// declare boolean rightPuzzle
+		boolean rightPuzzle = false;
 		
 		// pick random number between 0 and 18
 		Random rand = new Random();
@@ -64,31 +69,31 @@ public class CreateGame {
 			signsArray = new int[]{1,5,1,1,1,1,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false){ 
+			while (rightPuzzle == false){ 
 			
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] + temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] + temp_number[3];
-				numbersArray[6] = temp_number[0] + temp_number[2];
-				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] + tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] + tempNumber[3];
+				numbersArray[6] = tempNumber[0] + tempNumber[2];
+				numbersArray[7] = tempNumber[1] + tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -100,31 +105,31 @@ public class CreateGame {
 			signsArray = new int[]{2,5,2,2,2,2,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false){ 
+			while (rightPuzzle == false){ 
 			
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] - temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] - temp_number[2];
-				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] - tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] - tempNumber[2];
+				numbersArray[7] = tempNumber[1] - tempNumber[3];
 				numbersArray[8] = numbersArray[6] - numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -136,31 +141,31 @@ public class CreateGame {
 			signsArray = new int[]{1,5,2,1,2,2,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false){ 
+			while (rightPuzzle == false){ 
 			
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] + temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] - temp_number[2];
-				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] + tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] - tempNumber[2];
+				numbersArray[7] = tempNumber[1] + tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -172,31 +177,31 @@ public class CreateGame {
 			signsArray = new int[]{1,5,1,2,1,2,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false){ 
+			while (rightPuzzle == false){ 
 			
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] + temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] + temp_number[2];
-				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] + tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] + tempNumber[2];
+				numbersArray[7] = tempNumber[1] - tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -208,31 +213,31 @@ public class CreateGame {
 			signsArray = new int[]{2,5,1,1,1,2,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false){ 
+			while (rightPuzzle == false){ 
 			
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] - temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] + temp_number[2];
-				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] - tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] + tempNumber[2];
+				numbersArray[7] = tempNumber[1] + tempNumber[3];
 				numbersArray[8] = numbersArray[6] - numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -244,31 +249,31 @@ public class CreateGame {
 			signsArray = new int[]{2,5,1,2,1,1,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false){ 
+			while (rightPuzzle == false){ 
 			
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] - temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] + temp_number[3];
-				numbersArray[6] = temp_number[0] + temp_number[2];
-				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] - tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] + tempNumber[3];
+				numbersArray[6] = tempNumber[0] + tempNumber[2];
+				numbersArray[7] = tempNumber[1] - tempNumber[3];
 				numbersArray[8] = numbersArray[6] - numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -280,31 +285,31 @@ public class CreateGame {
 			signsArray = new int[]{1,5,2,2,2,1,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false){ 
+			while (rightPuzzle == false){ 
 			
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] + temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] + temp_number[3];
-				numbersArray[6] = temp_number[0] - temp_number[2];
-				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] + tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] + tempNumber[3];
+				numbersArray[6] = tempNumber[0] - tempNumber[2];
+				numbersArray[7] = tempNumber[1] - tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -316,31 +321,31 @@ public class CreateGame {
 			signsArray = new int[]{2,5,2,1,2,1,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false){ 
+			while (rightPuzzle == false){ 
 			
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] - temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] + temp_number[3];
-				numbersArray[6] = temp_number[0] - temp_number[2];
-				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] - tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] + tempNumber[3];
+				numbersArray[6] = tempNumber[0] - tempNumber[2];
+				numbersArray[7] = tempNumber[1] + tempNumber[3];
 				numbersArray[8] = numbersArray[6] - numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -352,32 +357,32 @@ public class CreateGame {
 			signsArray = new int[]{1,5,1,2,2,2,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
-				temp_number[2] = temp_number[1];
+				tempNumber[2] = tempNumber[1];
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] + temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] + temp_number[2];
-				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] + tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] + tempNumber[2];
+				numbersArray[7] = tempNumber[1] - tempNumber[3];
 				numbersArray[8] = numbersArray[6] - numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -389,32 +394,32 @@ public class CreateGame {
 			signsArray = new int[]{2,5,2,1,1,1,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 random integers between 1 and 9999
 				for (int i = 0; i < 4; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
-				temp_number[2] = temp_number[1];
+				tempNumber[2] = tempNumber[1];
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] - temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] + temp_number[3];
-				numbersArray[6] = temp_number[0] - temp_number[2];
-				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] - tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] + tempNumber[3];
+				numbersArray[6] = tempNumber[0] - tempNumber[2];
+				numbersArray[7] = tempNumber[1] + tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -426,32 +431,32 @@ public class CreateGame {
 			signsArray = new int[]{1,5,1,1,2,2,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 3 random integers between 1 and 9999
 				for (int i = 0; i < 3; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
-				temp_number[3] = temp_number[2] - temp_number[1];
+				tempNumber[3] = tempNumber[2] - tempNumber[1];
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] + temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] + temp_number[2];
-				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] + tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] + tempNumber[2];
+				numbersArray[7] = tempNumber[1] + tempNumber[3];
 				numbersArray[8] = numbersArray[6] - numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -463,32 +468,32 @@ public class CreateGame {
 			signsArray = new int[]{2,5,2,2,1,1,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 3 random integers between 1 and 9999
 				for (int i = 0; i < 3; i++) {
-					temp_number[i] = rand.nextInt(9998) + 1;
+					tempNumber[i] = rand.nextInt(9998) + 1;
 				}
-				temp_number[3] = temp_number[1] - temp_number[2];
+				tempNumber[3] = tempNumber[1] - tempNumber[2];
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] - temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] + temp_number[3];
-				numbersArray[6] = temp_number[0] - temp_number[2];
-				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] - tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] + tempNumber[3];
+				numbersArray[6] = tempNumber[0] - tempNumber[2];
+				numbersArray[7] = tempNumber[1] - tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -500,41 +505,41 @@ public class CreateGame {
 			signsArray = new int[]{3,5,3,1,2,1,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 suitable random integers between 1 and 9999
 				boolean condition = false;
 				while (condition == false) {
-					temp_number[0] = 2;
-					while ((temp_number[0] % 2) == 0) {
-						temp_number[0] = rand.nextInt(9996) + 2;
+					tempNumber[0] = 2;
+					while ((tempNumber[0] % 2) == 0) {
+						tempNumber[0] = rand.nextInt(9996) + 2;
 					}
-					temp_number[1] = rand.nextInt(9998) + 1;
-					temp_number[2] = rand.nextInt(9998) + 1;
-					if ((temp_number[1] * (temp_number[0] - 1)) > (temp_number[2] * (temp_number[0] + 1))) {
-						temp_number[3] = ((temp_number[1] * (temp_number[0] - 1)) - (temp_number[2] * (temp_number[0] + 1))) / 2;
+					tempNumber[1] = rand.nextInt(9998) + 1;
+					tempNumber[2] = rand.nextInt(9998) + 1;
+					if ((tempNumber[1] * (tempNumber[0] - 1)) > (tempNumber[2] * (tempNumber[0] + 1))) {
+						tempNumber[3] = ((tempNumber[1] * (tempNumber[0] - 1)) - (tempNumber[2] * (tempNumber[0] + 1))) / 2;
 						condition = true;
 					}
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] * temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] + temp_number[3];
-				numbersArray[6] = temp_number[0] * temp_number[2];
-				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] * tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] + tempNumber[3];
+				numbersArray[6] = tempNumber[0] * tempNumber[2];
+				numbersArray[7] = tempNumber[1] + tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -546,35 +551,35 @@ public class CreateGame {
 			signsArray = new int[]{3,5,3,1,1,2,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 suitable random integers between 1 and 9999
-				temp_number[0] = 2;
-				while ((temp_number[0] % 2) == 0) {
-					temp_number[0] = rand.nextInt(9996) + 2;
+				tempNumber[0] = 2;
+				while ((tempNumber[0] % 2) == 0) {
+					tempNumber[0] = rand.nextInt(9996) + 2;
 				}
-				temp_number[1] = rand.nextInt(9998) + 1;
-				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] =((temp_number[0] - 1)*(temp_number[1] - temp_number[2])) / 2;
+				tempNumber[1] = rand.nextInt(9998) + 1;
+				tempNumber[2] = rand.nextInt(9998) + 1;
+				tempNumber[3] =((tempNumber[0] - 1)*(tempNumber[1] - tempNumber[2])) / 2;
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] * temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] * temp_number[2];
-				numbersArray[7] = temp_number[1] + temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] * tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] * tempNumber[2];
+				numbersArray[7] = tempNumber[1] + tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -586,35 +591,35 @@ public class CreateGame {
 			signsArray = new int[]{3,5,1,3,2,2,5,5,5,5,1,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 suitable random integers between 1 and 9999
-				temp_number[0] = rand.nextInt(9998) + 1;
-				temp_number[1] = 2;
-				while ((temp_number[1] % 2) == 0) {
-					temp_number[1] = rand.nextInt(9996) + 2;
+				tempNumber[0] = rand.nextInt(9998) + 1;
+				tempNumber[1] = 2;
+				while ((tempNumber[1] % 2) == 0) {
+					tempNumber[1] = rand.nextInt(9996) + 2;
 				}
-				temp_number[3] = rand.nextInt(9998) + 1;
-				temp_number[2] = ((temp_number[1] - 1) * (temp_number[0] - temp_number[3])) / 2;
+				tempNumber[3] = rand.nextInt(9998) + 1;
+				tempNumber[2] = ((tempNumber[1] - 1) * (tempNumber[0] - tempNumber[3])) / 2;
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] * temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] + temp_number[2];
-				numbersArray[7] = temp_number[1] * temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] * tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] + tempNumber[2];
+				numbersArray[7] = tempNumber[1] * tempNumber[3];
 				numbersArray[8] = numbersArray[6] + numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}	
@@ -626,38 +631,38 @@ public class CreateGame {
 			signsArray = new int[]{3,5,1,2,1,2,5,5,5,5,3,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 suitable random integers between 1 and 9999
 				boolean condition = false;
 				while (condition == false) {
 					for (int i = 0; i < 3; i++) {
-						temp_number[i] = temp_number[i] = rand.nextInt(500) + 3;
+						tempNumber[i] = tempNumber[i] = rand.nextInt(500) + 3;
 					}
-					if ((temp_number[2] * (temp_number[1] - 1)) % (temp_number[0] + temp_number[2] - 1) == 0) {
+					if ((tempNumber[2] * (tempNumber[1] - 1)) % (tempNumber[0] + tempNumber[2] - 1) == 0) {
 						condition = true;
-						temp_number[3] = (temp_number[2] * (temp_number[1] - 1)) / (temp_number[0] + temp_number[2] - 1);
+						tempNumber[3] = (tempNumber[2] * (tempNumber[1] - 1)) / (tempNumber[0] + tempNumber[2] - 1);
 					}
 				}
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0];
-				numbersArray[1] = temp_number[1];
-				numbersArray[2] = temp_number[0] * temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[4] = temp_number[3];
-				numbersArray[5] = temp_number[2] - temp_number[3];
-				numbersArray[6] = temp_number[0] + temp_number[2];
-				numbersArray[7] = temp_number[1] - temp_number[3];
+				numbersArray[0] = tempNumber[0];
+				numbersArray[1] = tempNumber[1];
+				numbersArray[2] = tempNumber[0] * tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[4] = tempNumber[3];
+				numbersArray[5] = tempNumber[2] - tempNumber[3];
+				numbersArray[6] = tempNumber[0] + tempNumber[2];
+				numbersArray[7] = tempNumber[1] - tempNumber[3];
 				numbersArray[8] = numbersArray[6] * numbersArray[7];
 				
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -669,26 +674,26 @@ public class CreateGame {
 			signsArray = new int[]{4,5,2,3,1,1,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 suitable random integers between 1 and 9999				
-				temp_number[0] = 2;
-				while ((temp_number[0] % 2) == 0) {
-					temp_number[0] = rand.nextInt(9996) + 2;
+				tempNumber[0] = 2;
+				while ((tempNumber[0] % 2) == 0) {
+					tempNumber[0] = rand.nextInt(9996) + 2;
 				}
-				temp_number[1] = rand.nextInt(9998) + 1;
-				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[1] - temp_number[2]) * (temp_number[0] - 1)) / 2;
+				tempNumber[1] = rand.nextInt(9998) + 1;
+				tempNumber[2] = rand.nextInt(9998) + 1;
+				tempNumber[3] = ((tempNumber[1] - tempNumber[2]) * (tempNumber[0] - 1)) / 2;
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0] * temp_number[1];
-				numbersArray[1] = temp_number[0];
-				numbersArray[2] = temp_number[1];
-				numbersArray[4] = temp_number[2];
-				numbersArray[5] = temp_number[3];
+				numbersArray[0] = tempNumber[0] * tempNumber[1];
+				numbersArray[1] = tempNumber[0];
+				numbersArray[2] = tempNumber[1];
+				numbersArray[4] = tempNumber[2];
+				numbersArray[5] = tempNumber[3];
 				numbersArray[3] = numbersArray[5] - numbersArray[4];
 				numbersArray[6] = numbersArray[0] - numbersArray[3];
 				numbersArray[7] = numbersArray[1] * numbersArray[4];
@@ -697,7 +702,7 @@ public class CreateGame {
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}	
@@ -709,26 +714,26 @@ public class CreateGame {
 			signsArray = new int[]{4,5,2,3,1,2,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 suitable random integers between 1 and 9999
-				temp_number[0] = 2;
-				while ((temp_number[0] % 2) == 0) {
-					temp_number[0] = rand.nextInt(9996) + 2;
+				tempNumber[0] = 2;
+				while ((tempNumber[0] % 2) == 0) {
+					tempNumber[0] = rand.nextInt(9996) + 2;
 				}
-				temp_number[1] = rand.nextInt(9998) + 1;
-				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[1] * (temp_number[0] - 1)) - (temp_number[2] * (temp_number[0] + 1))) / 2;
+				tempNumber[1] = rand.nextInt(9998) + 1;
+				tempNumber[2] = rand.nextInt(9998) + 1;
+				tempNumber[3] = ((tempNumber[1] * (tempNumber[0] - 1)) - (tempNumber[2] * (tempNumber[0] + 1))) / 2;
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0] * temp_number[1];
-				numbersArray[1] = temp_number[0];
-				numbersArray[2] = temp_number[1];
-				numbersArray[4] = temp_number[2];
-				numbersArray[5] = temp_number[3];
+				numbersArray[0] = tempNumber[0] * tempNumber[1];
+				numbersArray[1] = tempNumber[0];
+				numbersArray[2] = tempNumber[1];
+				numbersArray[4] = tempNumber[2];
+				numbersArray[5] = tempNumber[3];
 				numbersArray[3] = numbersArray[4] + numbersArray[5];
 				numbersArray[6] = numbersArray[0] - numbersArray[3];
 				numbersArray[7] = numbersArray[1] * numbersArray[4];
@@ -737,7 +742,7 @@ public class CreateGame {
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -749,29 +754,29 @@ public class CreateGame {
 			signsArray = new int[]{4,5,2,1,1,1,5,5,5,5,2,5};
 			
 			// create numbersArray
-			while (right_puzzle == false) {
+			while (rightPuzzle == false) {
 				
-				// set right_puzzle to true
-				right_puzzle = true;
+				// set rightPuzzle to true
+				rightPuzzle = true;
 				
 				// pick 4 suitable random integers between 1 and 9999
-				temp_number[0] = 1;
-				while ((temp_number[0] % 2) != 0) {
-					temp_number[0] = rand.nextInt(9998) + 1;
+				tempNumber[0] = 1;
+				while ((tempNumber[0] % 2) != 0) {
+					tempNumber[0] = rand.nextInt(9998) + 1;
 				}
-				temp_number[1] = 1;
-				while ((temp_number[1] % 2) != 0) {
-					temp_number[1] = rand.nextInt(9998) + 1;
+				tempNumber[1] = 1;
+				while ((tempNumber[1] % 2) != 0) {
+					tempNumber[1] = rand.nextInt(9998) + 1;
 				}
-				temp_number[2] = rand.nextInt(9998) + 1;
-				temp_number[3] = ((temp_number[0] * (temp_number[1] - 1)) - temp_number[1]) / 2;
+				tempNumber[2] = rand.nextInt(9998) + 1;
+				tempNumber[3] = ((tempNumber[0] * (tempNumber[1] - 1)) - tempNumber[1]) / 2;
 				
 				// set all numbers puzzle
-				numbersArray[0] = temp_number[0] * temp_number[1];
-				numbersArray[1] = temp_number[0];
-				numbersArray[2] = temp_number[1];
-				numbersArray[3] = temp_number[2];
-				numbersArray[5] = temp_number[3];
+				numbersArray[0] = tempNumber[0] * tempNumber[1];
+				numbersArray[1] = tempNumber[0];
+				numbersArray[2] = tempNumber[1];
+				numbersArray[3] = tempNumber[2];
+				numbersArray[5] = tempNumber[3];
 				numbersArray[4] = numbersArray[5] - numbersArray[3];
 				numbersArray[6] = numbersArray[0] - numbersArray[3];
 				numbersArray[7] = numbersArray[1] + numbersArray[4];
@@ -780,7 +785,7 @@ public class CreateGame {
 				// check whether all numbers are between 1 and 9999
 				for (int j = 0; j < 9; j++) {
 					if ((numbersArray[j] < 1) || (numbersArray[j] > 9999)) {
-						right_puzzle = false;
+						rightPuzzle = false;
 					}
 				}
 			}
@@ -797,7 +802,7 @@ public class CreateGame {
 		hintNumber[0] = 0;
 		ArrayList<Integer> givenHints = new ArrayList<Integer>();
 		
-		// return symbolsArray and numbersArray
+		// return all
 		return new Object[]{symbolsArray, numbersArray, charactersArray, answersArray, hintNumber, givenHints};
 	}
 	
@@ -807,9 +812,9 @@ public class CreateGame {
 		// declare charactersArray
 		String[] charactersArray = new String[9];
 		
-		// create map_numbers and map_chars
-		int[] map_numbers = new int[10];
-		char[] map_chars = {'A','B','C','D','E','F','G','H','J','K'};
+		// create mapNumbers and mapChars
+		int[] mapNumbers = new int[10];
+		char[] mapChars = {'A','B','C','D','E','F','G','H','J','K'};
 		
 		// shuffle the numbers of map_numbers 0-9
 		List<Integer> tempList = new ArrayList<Integer>();
@@ -818,7 +823,7 @@ public class CreateGame {
 	    }
 	    Collections.shuffle(tempList);
 	    for (int i = 0; i < 10; i++) {
-	      map_numbers[i] = tempList.get(i);
+	      mapNumbers[i] = tempList.get(i);
 	    }
 		
 		// loop through numbersArray
@@ -835,8 +840,8 @@ public class CreateGame {
 				
 				// change number to character
 				for (int l = 0; l < 10; l++) {
-					if (Character.getNumericValue(c) == map_numbers[l]) {
-						temp1.append(map_chars[l]);
+					if (Character.getNumericValue(c) == mapNumbers[l]) {
+						temp1.append(mapChars[l]);
 					}
 				}
 			}
@@ -852,7 +857,7 @@ public class CreateGame {
 	// method that converts numbers to symbols
 	public String[] createSymbols(int[] symbolsArray) {
 		
-		// declare tempArray and return Array
+		// declare tempArray and returnArray
 		int[] tempArray = symbolsArray;
 		String[] returnArray = new String[12];
 		
@@ -877,11 +882,11 @@ public class CreateGame {
 			}
 		}
 		
-		// return array
+		// return returnArray
 		return returnArray;
 	}
 	
-	// checks whether an integer is in an integer array	
+	// checks whether a certain integer is in a certain integer array	
 	public boolean contains(final int[] array, final int key) {
         for (final int i : array) {
             if (i == key) {

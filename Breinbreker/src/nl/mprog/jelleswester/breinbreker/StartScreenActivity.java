@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-
-import com.parse.Parse;
-import com.parse.ParseObject;
+import android.widget.RelativeLayout;
 
 
 public class StartScreenActivity extends ActionBarActivity {
@@ -26,21 +26,41 @@ public class StartScreenActivity extends ActionBarActivity {
         // check whether game is saved
         Context mContext = getApplicationContext();
         GameSavings gs = new GameSavings(mContext);
-        boolean saved_game = gs.getGameSaved();
+        boolean savedGame = gs.getGameSaved();
         
-        // disable continue button if necessary
-        Button continueButton = (Button) findViewById(R.id.continueGameButton);
-        continueButton.setEnabled(saved_game);
+        // if there is a saved game
+        if (savedGame) {
+        	
+        	// create continueButton and find relative layout by id
+        	RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeLayout1);
+        	Button continueButton = new Button(mContext);
+        	
+        	// set text and layout
+        	continueButton.setText("Continue Game");
+	    	continueButton.setBackgroundResource(R.drawable.button_shape_2);
+	    	continueButton.setTextColor(getResources().getColor(R.color.white));
+	    	RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+	    	        ViewGroup.LayoutParams.WRAP_CONTENT);
+	    	lp.addRule(RelativeLayout.ABOVE, R.id.newGameButton);
+	    	continueButton.setLayoutParams(lp);
+	    	
+	    	// set onClickListener
+	    	continueButton.setOnClickListener(new OnClickListener() {
+	    		
+	    		@Override
+	    		public void onClick(View view) {
+	    			
+	    			// on click start GamePlayActivity
+	    			startActivity(new Intent(StartScreenActivity.this, GamePlayActivity.class));
+	    	      	finish();
+	    		}
+	    	});
+	    	rl.addView(continueButton);
+        }
     }
     
-    // activates when clicking on continue button
-   	public void continueButton(View view) {
-      	startActivity(new Intent(this, GamePlayActivity.class));
-      	finish();
-   	}
-    
-    // activates when clicking on start button
-  	public void startButton(View view) {
+    // activates when clicking on new game button
+  	public void newGameButton(View view) {
   		
   		// set gameSaved on false
   		Context mContext = getApplicationContext();
@@ -54,7 +74,11 @@ public class StartScreenActivity extends ActionBarActivity {
   	
   	// activates when clicking on high score button
    	public void highScoreButton(View view) {
-      	startActivity(new Intent(this, HighScoreActivity.class));
+      	
+   		// start HighScoreActivity
+   		Intent intent = new Intent(this, HighScoreActivity.class);
+   		intent.putExtra(HighScoreActivity.EXTRA_HIGH_SCORE_TYPE, HighScoreActivity.HIGH_SCORE_TYPE_OFFLINE);
+   		startActivity(intent);
       	finish();
    	}
 }

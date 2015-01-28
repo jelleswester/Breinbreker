@@ -18,9 +18,10 @@ public class HighScoreController {
 		c = context;
 	}
 	
+	// method that checks whether there is a new highscore and return position in rank
 	public int[] newHighScore(long[] highScoreTime, long newTime) {
 		
-		// declare positionInRank & newHighScore
+		// declare positionInRank and newHighScore
 		int positionInRank = 0;
 		int newHighScore = 0;
 		
@@ -44,11 +45,11 @@ public class HighScoreController {
 	    	newHighScore = 1;
 	    }
 	    
-	    // return newHighScore & positionInRank
+	    // return newHighScore and positionInRank
 	    return new int[]{newHighScore, positionInRank};
 	}
 	
-	// method that add a new highscore
+	// method that adds a new local highscore
 	public Object[] addLocalHighScore(String[] highScoreName, long[] highScoreTime, int positionInRank, String newName, long newTime) {
 		
 		// check for the number of highscores

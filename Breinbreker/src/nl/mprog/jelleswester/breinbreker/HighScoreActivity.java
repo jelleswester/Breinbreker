@@ -1,5 +1,7 @@
 package nl.mprog.jelleswester.breinbreker;
 
+import java.util.Random;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +13,19 @@ import android.widget.TextView;
 
 public class HighScoreActivity extends ActionBarActivity {
 	
-	String[] highScoreName;
-	long[] highScoreTime;
+	public static final String EXTRA_HIGH_SCORE_TYPE = "typeOfHighScore";
+	public static final int HIGH_SCORE_TYPE_OFFLINE = 0;
+	public static final int HIGH_SCORE_TYPE_ONLINE = 1;
+	
+	// declare highScoreNames and highScoreTimes
+	String[] highScoreNames;
+	long[] highScoreTimes;
+	
+	// declare numberOfScores
 	int numberOfScores;
+	
+	// current highscore displayed
+	int currentHighScore;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,42 +39,46 @@ public class HighScoreActivity extends ActionBarActivity {
 		// get highscore arrays
 		Context mContext = getApplicationContext();
 		HighScoreController hs = new HighScoreController(mContext);
-		GameSavings gs = new GameSavings(mContext);
-		int typeOfHighScore = gs.getTypeOfHighScore();
+		int typeOfHighScore = getIntent().getIntExtra(EXTRA_HIGH_SCORE_TYPE, HIGH_SCORE_TYPE_OFFLINE);
 		String textButton;
-		System.out.println("check 1");
 		
-		if (typeOfHighScore == 0) {
+		if (typeOfHighScore == HIGH_SCORE_TYPE_OFFLINE) {
+			GameSavings gs = new GameSavings(mContext);
 			Object[] highScoreArrays = gs.getLocalHighScore();
-			highScoreName = (String[]) highScoreArrays[0];
-			highScoreTime = (long[]) highScoreArrays[1];
+			highScoreNames = (String[]) highScoreArrays[0];
+			highScoreTimes = (long[]) highScoreArrays[1];
 			numberOfScores = gs.getNumberOfScores();
-			gs.setTypeOfHighScore(1);
 			textButton = "Online";
+			setTextViews();
+			currentHighScore = HIGH_SCORE_TYPE_OFFLINE;
 		}
 		else {
-			System.out.println("check 2");
 			hs.getOnlineHighScores(new OnLoadingFinishedListener() {
 
 				@Override
 				public void onLoadingFinished(Object[] items) {
-					highScoreName = (String[]) items[0];
-					highScoreTime = (long[]) items[1];
-					numberOfScores = highScoreTime.length;
-					System.out.println("check 3");
+					highScoreNames = (String[]) items[0];
+					highScoreTimes = (long[]) items[1];
+					numberOfScores = highScoreTimes.length;
+					setTextViews();
 				}
 		    });
-			gs.setTypeOfHighScore(0);
 			textButton = "My own";
-			System.out.println("check 4");
+			currentHighScore = HIGH_SCORE_TYPE_ONLINE;
 		}
 		
 		Button button = (Button) findViewById(R.id.otherHighScoreButton);
 		button.setText(textButton);
-	    // set highscore time and name in textViews
-		System.out.println("check 5");
+		
+	    
+	}
+	
+	// method that sets the highscore arrays in the textViews
+	public void setTextViews() {
+		
+		// set highscore time and name in textViews
 		for (int j = 0; j < numberOfScores; j++) {
-			System.out.println("check 7");
+			
 			// set number
 			String numberView = "numberView" + j;
 			int resID0 = getResources().getIdentifier(numberView, "id", "nl.mprog.jelleswester.breinbreker");
@@ -73,22 +89,32 @@ public class HighScoreActivity extends ActionBarActivity {
 			String nameView = "nameView" + j;
 			int resID1 = getResources().getIdentifier(nameView, "id", "nl.mprog.jelleswester.breinbreker");
 			TextView name = (TextView) findViewById(resID1);
-			name.setText(highScoreName[j]);
+			name.setText(highScoreNames[j]);
 			
 			// set time
 			String timeView = "timeView" + j;
 			int resID2 = getResources().getIdentifier(timeView, "id", "nl.mprog.jelleswester.breinbreker");
 	    	TextView time = (TextView) findViewById(resID2);
-			String[] tempTime = hs.convertTime(highScoreTime[j]);
+	    	HighScoreController hs = new HighScoreController(getApplicationContext());
+	    	String[] tempTime = hs.convertTime(highScoreTimes[j]);
 			time.setText(tempTime[0] + ":" + tempTime[1] + ":" + tempTime[2]);    	
 	    }
-		System.out.println("check 6");
 	}
 	
 	// activates when clicking on other highscore button
   	public void otherHighScoreButton(View view) {
-  		finish();
-  		startActivity(new Intent(this, HighScoreActivity.class));
+  		
+  		// start HighScoreActivity
+  		Intent intent = new Intent(this, HighScoreActivity.class);
+  		if (currentHighScore == HIGH_SCORE_TYPE_OFFLINE) {
+  			intent.putExtra(HighScoreActivity.EXTRA_HIGH_SCORE_TYPE, HighScoreActivity.HIGH_SCORE_TYPE_ONLINE);
+  		}
+  		else {
+  	   		intent.putExtra(HighScoreActivity.EXTRA_HIGH_SCORE_TYPE, HighScoreActivity.HIGH_SCORE_TYPE_OFFLINE);
+
+  		}
+   		finish();
+   		startActivity(intent);
   	}
 	
 	// activates when clicking on back button

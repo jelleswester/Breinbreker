@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Chronometer;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,16 +25,20 @@ public class GamePlayActivity extends ActionBarActivity {
 	// declare variables to record time
 	long startTime;
 	long timeElapsed;
+	Chronometer timeMeter;
 	
-	// create ArrayList numberpickers
+	// create ArrayList numberPickers
 	ArrayList<NumberPicker> numberPickers = new ArrayList<NumberPicker>();
 	
-	// create ArrayList doNotAlter (contains locations of disabled numberpickers)
+	// create ArrayList doNotAlter (contains locations of disabled numberPickers)
 	ArrayList<Integer> doNotAlter = new ArrayList<Integer>();
 	
-	// hint variables
+	// declare variable needed to give hints
 	long hintNumber;
 	ArrayList<Integer> givenHints;
+	
+	// declare boolean winCheck
+	boolean winCheck = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +54,13 @@ public class GamePlayActivity extends ActionBarActivity {
 	    GameSavings gs = new GameSavings(mContext);
 	    boolean saved_game = gs.getGameSaved();
 	    
-		// declare object game arrays
+		// declare object array named gameArrays
 		Object[] gameArrays;
 		
 		// check for saved game
 		if (saved_game == true) {
+			
+			// get the saved game
 			CreateGame game = new CreateGame(mContext);
 			gameArrays = game.savedGame();
 			timeElapsed = gs.getElapsedTime();
@@ -60,12 +68,14 @@ public class GamePlayActivity extends ActionBarActivity {
 		
 		// else open a new game
 		else {
+			
+			// get the new created game
 			CreateGame game = new CreateGame(mContext);
 			gameArrays = game.newGame();
 			timeElapsed = 0;
 		}
 		
-		// get game arrays
+		// unpack the retrieved game
 		symbolsArray = (String[]) gameArrays[0];
 		numbersArray = (int[]) gameArrays[1];
 		charactersArray = (String[]) gameArrays[2];
@@ -74,18 +84,15 @@ public class GamePlayActivity extends ActionBarActivity {
 		hintNumber = temp[0];
 		givenHints = (ArrayList<Integer>) gameArrays[5];
 		
-		// build the game
-		buildGame(symbolsArray, charactersArray);
-		
-		for (int z = 0; z < 9; z ++) {
+		for (int z = 0; z < 9; z++) {
 			System.out.println(numbersArray[z]);
 		}
 		
-		// start counting the time
-		startTime = System.currentTimeMillis();	
+		// build the game
+		buildGame(symbolsArray, charactersArray);
 	}
 	
-	// method that builds the game using the gameArrays
+	// method that builds the game
 	public void buildGame(String[] symbolsArray, String[] charactersArray) {
 		
 		// put characters in TextViews
@@ -95,8 +102,8 @@ public class GamePlayActivity extends ActionBarActivity {
 			String temp = charactersArray[i];
 			
 			// reverse the string and change into char array
-			String reverse = new StringBuilder(new String(temp)).reverse().toString();
-			char[] temp1 = reverse.toCharArray();
+			String reversedString = new StringBuilder(new String(temp)).reverse().toString();
+			char[] charArray = reversedString.toCharArray();
 			int count = 0;
 			for (int k = 3; k > -1; k--){
 				
@@ -106,8 +113,8 @@ public class GamePlayActivity extends ActionBarActivity {
 				TextView text = (TextView) findViewById(resID);
 				
 				// set character if there is any (string can be shorter than four)
-				if (temp1.length > count) {
-					text.setText(String.valueOf(temp1[count]));
+				if (charArray.length > count) {
+					text.setText(String.valueOf(charArray[count]));
 				}
 				else {
 					text.setText(" ");
@@ -118,9 +125,13 @@ public class GamePlayActivity extends ActionBarActivity {
 		
 		// put symbols in TextViews (+-x:=)
 		for (int j = 0; j < 12; j++) {
+			
+			// find symbolView by id
 			String symbolViewID = "symbolView" + j;
 			int resID = getResources().getIdentifier(symbolViewID, "id", "nl.mprog.jelleswester.breinbreker");
 			TextView symbol = (TextView) findViewById(resID);
+			
+			// set the symbol
 			symbol.setText(symbolsArray[j]);
 		}
 		
@@ -133,7 +144,7 @@ public class GamePlayActivity extends ActionBarActivity {
 			int[] digits = new int[4];
 			int power = 3;
 			
-			// store the digits of the answersArray seperately
+			// store the digits of the answersArray separately
 			for (int k = 0; k < 4; k ++) {
 				digits[k] = number / ((int)Math.pow(10,power));
 				number = number - (digits[k] * (int)Math.pow(10,power));
@@ -157,6 +168,13 @@ public class GamePlayActivity extends ActionBarActivity {
 					np.setId((i * 10) + j);
 					doNotAlter.add((i * 10) + j);
 				}
+				else if (givenHints.contains(digits[j])) {
+					np.setEnabled(false);
+					np.setMinValue(0);
+					np.setMaxValue(9);
+					np.setValue(digits[j]);
+					np.setId((i * 10) + j);
+				}
 				else {
 					np.setMinValue(0);
 					np.setMaxValue(9);
@@ -165,19 +183,24 @@ public class GamePlayActivity extends ActionBarActivity {
 				}
 				np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 				np.setWrapSelectorWheel(true);
+				
+				// set onValueChangedListener
 				np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+					
 					@Override
 					public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 						
 						// change answersArray and numberPickers accordingly
 						GameController game = new GameController();
-		            	Object[] changedArrays = game.changeAnswer(numberPickers, answersArray, numbersArray, picker.getValue(), picker.getId(), doNotAlter);
+		            	Object[] changedArrays = game.changeAnswer(numberPickers, answersArray, numbersArray, picker.getValue(), picker.getId(), doNotAlter, false);
 		            	answersArray = (int[])changedArrays[0];
 		            	numberPickers = (ArrayList<NumberPicker>)changedArrays[1];
-							
+		            	
 						// check whether the game is finished
-		            	if (game.wonGame(numbersArray,answersArray)) {
-							startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
+		            	if ((!winCheck) && (game.wonGame(numbersArray,answersArray))) {
+		            		winCheck = true;
+		            		// start YouWonActivity
+		            		startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
 				         	finish();
 						}
 					      
@@ -193,13 +216,13 @@ public class GamePlayActivity extends ActionBarActivity {
 	// activates when hint button is pressed
 	public void hintButton(View view) {
 		
-		// open game controller and get new hint check
+		// check whether new hint should be given (max 4)
 		GameController game = new GameController();
 		boolean newHint = game.newHint(givenHints);
 		
-		// get context in order to toast message
+		// context and text in order to toast message
 		Context context = getApplicationContext();
-		CharSequence text;
+		CharSequence toastMessage;
 		
 		// if a new hint should be given
 		if (newHint) {
@@ -217,13 +240,19 @@ public class GamePlayActivity extends ActionBarActivity {
 			Context mContext = getApplicationContext();
 			HighScoreController hs = new HighScoreController(mContext);
 			String [] time = hs.convertTime(timePenalty);
-			text = "Time penalty: " + time[0] + ":" + time[1] + ":" + time[2];
+			toastMessage = "Time penalty: " + time[0] + ":" + time[1] + ":" + time[2];
 			
-			// add time penalty to elapsed time
-			timeElapsed += timePenalty;
+			// add time penalty to elapsed time and add time to chronometer
+			timeElapsed = timeElapsed + timePenalty +(System.currentTimeMillis() - startTime);
+			startTime = System.currentTimeMillis();
+			timeMeter.stop();
+			timeMeter.setBase(SystemClock.elapsedRealtime() - (timeElapsed));
+			timeMeter.start();
 			
 			// check whether game is finished
 			if (game.wonGame(numbersArray, answersArray)) {
+				
+				// start YouWonActivity
 				startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
 	         	finish();
 			}
@@ -232,22 +261,33 @@ public class GamePlayActivity extends ActionBarActivity {
 		else {
 	
 			// set message
-			text = "No more hints";
+			toastMessage = "No more hints";
 		}
 		
 		// toast message
 		int duration = Toast.LENGTH_SHORT;
-		Toast toast = Toast.makeText(context, text, duration);
+		Toast toast = Toast.makeText(context, toastMessage, duration);
 		toast.show();
 	}
   	
-  	// activates when activity is ending
+  	@Override
+  	public void onResume() {
+  		super.onResume();
+  		
+  		// set the startTime
+  		startTime = System.currentTimeMillis();
+  		timeMeter = (Chronometer) findViewById(R.id.chronometer1);
+  		timeMeter.setBase(SystemClock.elapsedRealtime() - (timeElapsed));
+  		timeMeter.start();
+  	}
+	
 	@Override
 	public void onPause() {
     	super.onPause();
     	
 	    // update the elapsed time
 	    timeElapsed = timeElapsed + (System.currentTimeMillis() - startTime);
+	    timeMeter.stop();
 	    
 	    // save the game
 	    Context mContext = getApplicationContext();
@@ -257,20 +297,18 @@ public class GamePlayActivity extends ActionBarActivity {
   	
   	// activates when back button is pressed
   	public void backButton(View view) {
-      	startActivity(new Intent(this, StartScreenActivity.class));
+      	
+  		// start StartScreenActivity
+  		startActivity(new Intent(this, StartScreenActivity.class));
       	finish();
    	}
-	
-  	// activates when youWon button is pressed
-  	public void youWonButton(View view) {
-  		startActivity(new Intent(this, YouWonActivity.class));
-     	finish();
-  	}
   	
   	// activates when androids back button is pressed
   	@Override
 	public void onBackPressed() {
-	    startActivity(new Intent(this, StartScreenActivity.class));
+	    
+  		// start StartScreenActivity
+  		startActivity(new Intent(this, StartScreenActivity.class));
 	    finish();
 	}
 }

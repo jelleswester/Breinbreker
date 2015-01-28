@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#CEF6EC"
+    android:background="@color/white"
     tools:context="nl.mprog.jelleswester.breinbreker.HighScoreActivity" >
 	
     <TextView
@@ -16,7 +16,9 @@
         android:text="@string/high_score"
         android:textSize="45sp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:textColor="#2B4F78" />
     
     <TableLayout
         android:layout_width="fill_parent"
@@ -28,140 +30,170 @@
 	        <TextView
 	            android:id="@+id/numberView0"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView0"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView0"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView1"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView1"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView1"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView2"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView2"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView2"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView3"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView3"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView3"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView4"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView4"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView4"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView5"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView5"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView5"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView6"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView6"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView6"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView7"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView7"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView7"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView8"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView8"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView8"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	    <TableRow>
 	        <TextView
 	            android:id="@+id/numberView9"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	        <TextView
 	            android:id="@+id/nameView9"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" />  
 	        <TextView
 	            android:id="@+id/timeView9"
 	            android:textSize="20sp"
+	            android:textColor="#2B4F78"
 	            android:layout_width="fill_parent" /> 
 	    </TableRow>
 	</TableLayout>
@@ -172,15 +204,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" >
+	    
 	    <Button
 	        android:id="@+id/backButton"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:onClick="backButton"
-	        android:background="@drawable/button_shape"
+	        android:background="@drawable/button_shape_2"
 	        android:textColor="@color/white"
-	        android:text="@string/back" />
+	        android:text="@string/back"
+	        android:layout_marginRight="1dp" />
+	    
 	    <Button
 	        android:id="@+id/otherHighScoreButton" 
 	        android:layout_width="fill_parent"
@@ -188,7 +223,8 @@
 	        android:layout_weight="1"
 	        android:onClick="otherHighScoreButton"
 	        android:background="@drawable/button_shape"
-	        android:textColor="@color/white" />
+	        android:textColor="@color/white"
+	        android:layout_marginLeft="1dp" />
     </LinearLayout>
 
 </RelativeLayout>

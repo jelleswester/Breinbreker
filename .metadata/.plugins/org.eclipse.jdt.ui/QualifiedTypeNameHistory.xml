@@ -16,5 +16,8 @@
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.parse.ParseException"/>
 <fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.OnLoadingFinishedListener"/>
+<fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.R"/>
 <fullyQualifiedTypeName name="nl.mprog.jelleswester.breinbreker.R.id"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="android.os.SystemClock"/>
 </qualifiedTypeNameHistroy>

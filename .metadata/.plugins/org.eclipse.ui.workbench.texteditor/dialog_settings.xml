@@ -2,23 +2,26 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="OnScroll" key="selection"/>
+		<item value="random" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="onscroll"/>
-			<item value="system"/>
-			<item value="numberOfScores ="/>
-			<item value="print"/>
-			<item value="geton"/>
-			<item value="gethig"/>
-			<item value="gethi"/>
-			<item value="get"/>
+			<item value="random"/>
+			<item value="changeanswer"/>
+			<item value="changearray"/>
+			<item value="givehint"/>
+			<item value="hintbutton"/>
+			<item value="color"/>
+			<item value="system.out"/>
+			<item value="onvalue"/>
 		</list>
 		<list key="replacehistory">
 			<item value="20sp"/>
+			<item value="25sp"/>
+			<item value="rightPuzzle"/>
+			<item value="tempNumber"/>
 			<item value="signsArray"/>
 		</list>
 	</section>

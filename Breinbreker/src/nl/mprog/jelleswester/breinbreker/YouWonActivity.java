@@ -1,7 +1,5 @@
 package nl.mprog.jelleswester.breinbreker;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,27 +15,23 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.parse.Parse;
-import com.parse.ParseObject;
+import android.widget.Toast;
 
 public class YouWonActivity extends ActionBarActivity {
 	
-	// declare highScoreName & highScoreTime
-	String[] highScoreName;
-	long[] highScoreTime;
+	// declare highScoreNames and highScoreTimes
+	String[] highScoreNames;
+	long[] highScoreTimes;
 	
 	// declare positionInRank
 	int positionInRank;
 	
 	// declare EditText
-	EditText et;
+	EditText editText;
 	
 	// declare newTime
 	long newTime;
 	
-	List<Integer> score;
-	String name;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,95 +46,114 @@ public class YouWonActivity extends ActionBarActivity {
 		GameSavings gs = new GameSavings(mContext);
 		gs.setGameSaved(false);
 		
-		// check whether time needs to come in highscore
+		// check whether time needs to come in high score
 		Object[] highScoreArray = gs.getLocalHighScore();
-		highScoreName = (String[]) highScoreArray[0];
-		highScoreTime = (long[]) highScoreArray[1];
+		highScoreNames = (String[]) highScoreArray[0];
+		highScoreTimes = (long[]) highScoreArray[1];
 		
-		// get elapsed time
+		// get elapsed time of currently finished game
 	    newTime = gs.getElapsedTime();
 	    
 	    // convert time to string array containing hours, mins, secs
 	    HighScoreController hs = new HighScoreController(mContext);
 	    String[] time = hs.convertTime(newTime);
 	    
-	    // set elapsed time
-	    TextView tv1 = (TextView) findViewById(R.id.textView2);
-	    tv1.setText("Your time: " + time[0] + ":" + time[1] + ":" + time[2]);
-	    tv1.setTextSize(20);
+	    // set elapsed time in textView
+	    TextView textView = (TextView) findViewById(R.id.textView2);
+	    textView.setText("Your time: " + time[0] + ":" + time[1] + ":" + time[2]);
 	    
-	    // declare newHighScore
-	    boolean newHighScore = false;
-	    
-	    // check for new highscore
-	    int[] highScoreCheck = hs.newHighScore(highScoreTime, newTime);
+	    // check whether current time is a new highscore
+	    int[] highScoreCheck = hs.newHighScore(highScoreTimes, newTime);
 	    if (highScoreCheck[0] == 1) {
-	    	newHighScore = true;
+	    	
+	    	// set positionInRank
 	    	positionInRank = highScoreCheck[1];
-	    }
-	    
-	    // if new high score, ask for name
-	    if (newHighScore) {
-
+	    	
 	    	// find relative layout
 	    	RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeLayout1);
 	    	
-	    	// new textView
-	    	TextView tv2 = new TextView(mContext);
+	    	// create new TextView and set text
+	    	TextView textView1 = new TextView(mContext);
 	    	String askName = "Submit your highscore:";
-	    	tv2.setText(askName);
-	    	tv2.setTextSize(20);
-	    	tv2.setTextColor(Color.parseColor("#000000"));
+	    	textView1.setText(askName);
+	    	textView1.setTextSize(25);
+	    	
+	    	// set layout of textView
+	    	textView1.setTextColor(Color.parseColor("#2B4F78"));
 	    	RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 	    	        ViewGroup.LayoutParams.WRAP_CONTENT);
 	    	lp1.addRule(RelativeLayout.BELOW, R.id.textView2);
-	    	tv2.setLayoutParams(lp1);
-	    	tv2.setId(123);
-	    	rl.addView(tv2);
+	    	lp1.setMargins(0, 0, 0, 15);
+	    	textView1.setLayoutParams(lp1);
+	    	textView1.setId(123);
+	    	rl.addView(textView1);
 	    	
-	    	// new editText
-	    	et = new EditText(mContext);
-	    	et.setHint("Name");
+	    	// set layout and maximum length of editText
+	    	editText = new EditText(mContext);
+	    	editText.setHint("Name");
 	    	int maxLength = 15;
-	    	et.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(maxLength) });
-	    	et.setSingleLine();
+	    	editText.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(maxLength) });
+	    	editText.setSingleLine();
 	    	RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
 	    	        ViewGroup.LayoutParams.WRAP_CONTENT);
 	    	lp2.addRule(RelativeLayout.BELOW, 123);
-	    	et.setLayoutParams(lp2);
-	    	rl.addView(et);
+	    	editText.setLayoutParams(lp2);
+	    	rl.addView(editText);
 	    	
-	    	// new save button
+	    	// create saveButton
 	    	LinearLayout lnl = (LinearLayout) findViewById(R.id.linearLayout1);
 	    	Button saveButton = new Button(mContext);
+	    	
+	    	// set text and style
 	    	saveButton.setText("save");
-	    	saveButton.setBackgroundResource(R.drawable.button_shape);
+	    	saveButton.setBackgroundResource(R.drawable.button_shape_2);
 	    	saveButton.setTextColor(getResources().getColor(R.color.white));
+	    	
+	    	// set onClickListener
 	    	saveButton.setOnClickListener(new OnClickListener() {
 	    		
 	    		@Override
 	    		public void onClick(View view) {
 	    			
-	    			// get newName
-	    			String newName = et.getText().toString();
+	    			// get the applied name
+	    			String userName = editText.getText().toString();
 	    			
-	    			// update highscores
-	    			Context mContext = getApplicationContext();
-	    			HighScoreController hs = new HighScoreController(mContext);
-	    			Object[] newHighScores = hs.addLocalHighScore(highScoreName, highScoreTime, positionInRank, newName, newTime);
-	    			highScoreName = (String[]) newHighScores[0];
-	    			highScoreTime = (long[])  newHighScores[1];
-	    			hs.addOnlineHighScore(newTime, newName);
-	    			
-	    			// save new highscores
-	    			GameSavings gs = new GameSavings(mContext);
-	    			gs.setHighScore(highScoreName, highScoreTime);
-	    			
-	    			// open next activity
-	    			startActivity(new Intent(YouWonActivity.this, HighScoreActivity.class));
-	    	      	finish();
+	    			// check whether a name was entered
+	    			if (userName.length() == 0) {
+	    				
+	    				// toast that name should be entered
+	    				Context context = getApplicationContext();
+	    				CharSequence text = "Please enter your name";
+	    				int duration = Toast.LENGTH_SHORT;
+	    				Toast toast = Toast.makeText(context, text, duration);
+	    				toast.show();
+	    			}
+	    			else {
+	    				
+	    				// update local highscores
+		    			Context mContext = getApplicationContext();
+		    			HighScoreController hs = new HighScoreController(mContext);
+		    			Object[] newHighScores = hs.addLocalHighScore(highScoreNames, highScoreTimes, positionInRank, userName, newTime);
+		    			highScoreNames = (String[]) newHighScores[0];
+		    			highScoreTimes = (long[])  newHighScores[1];
+		    			
+		    			// add online highscore
+		    			hs.addOnlineHighScore(newTime, userName);
+		    			
+		    			// save new local highscores
+		    			GameSavings gs = new GameSavings(mContext);
+		    			gs.setHighScore(highScoreNames, highScoreTimes);
+		    			
+		    			// start HighScoreActivit
+		    	   		Intent intent = new Intent(YouWonActivity.this, HighScoreActivity.class);
+		    	   		intent.putExtra(HighScoreActivity.EXTRA_HIGH_SCORE_TYPE, HighScoreActivity.HIGH_SCORE_TYPE_OFFLINE);
+		    	   		startActivity(intent);
+		    	      	finish();
+	    			}
 	    		}
 	    	});
+	    	
+	    	// set layout of saveButton
 	    	LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
 	    			ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
 	    	saveButton.setLayoutParams(lp3);
@@ -150,12 +163,17 @@ public class YouWonActivity extends ActionBarActivity {
 	
 	// activates when clicking on back button
    	public void backButton(View view) {
-      	startActivity(new Intent(this, StartScreenActivity.class));
+      	
+   		// start StartScreenActivity
+   		startActivity(new Intent(this, StartScreenActivity.class));
       	finish();
    	}
   	
+   	// activates when Android back button is pressed 
   	@Override
 	public void onBackPressed() {
+  		
+  		// Start StartScreenActivity
   		startActivity(new Intent(this, StartScreenActivity.class));
       	finish();
 	}
