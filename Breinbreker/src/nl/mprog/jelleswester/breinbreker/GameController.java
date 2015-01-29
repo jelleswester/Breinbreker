@@ -1,3 +1,14 @@
+/**
+ * Jelles Wester
+ * jelleswester@gmail.com
+ * 10004531
+ * 
+ * GameController:
+ * This class offers methods to change all game details, to check whether a
+ * game is finished, to check whether a new hint should be given and to give
+ * a new hint.
+ */
+
 package nl.mprog.jelleswester.breinbreker;
 
 import java.util.ArrayList;
@@ -7,25 +18,27 @@ import java.util.Random;
 import android.widget.NumberPicker;
 
 public class GameController {
-	
-	// method that updates answersArray and numberPickers when NumberPicker was scrolled 
-	public Object[] changeAnswer(ArrayList<NumberPicker> numberPickers, int[] answersArray, int[] numbersArray, int newVal, int id, ArrayList<Integer>  doNotAlter, boolean isHint) {
-		
+
+	// method that updates answersArray and numberPickers when NumberPicker was
+	// scrolled
+	public Object[] changeAnswer(ArrayList<NumberPicker> numberPickers,
+			int[] answersArray, int[] numbersArray, int newVal, int id,
+			ArrayList<Integer> doNotAlter, boolean isHint) {
+
 		// declare tempAnswersArray, tempNumbersArray, tempNumberPickers
 		int[] tempAnswersArray = answersArray;
 		int[] tempNumbersArray = numbersArray;
 		ArrayList<NumberPicker> tempNumberPickers = numberPickers;
-		
+
 		// find positionInArray and positionInNumber
 		int positionInArray = id / 10;
 		int positionInNumber;
 		if (positionInArray == 0) {
 			positionInNumber = id;
+		} else {
+			positionInNumber = id % (positionInArray * 10);
 		}
-		else {
-			positionInNumber = id % (positionInArray * 10); 
-		}
-		
+
 		// find out which character is changing
 		int x = tempNumbersArray[positionInArray];
 		int[] digits1 = new int[4];
@@ -34,7 +47,7 @@ public class GameController {
 			x /= 10;
 		}
 		int characterThatChanges = digits1[positionInNumber];
-		
+
 		// find which locations changes need to be made
 		List<Integer> locationsList = new ArrayList<Integer>();
 		for (int j = 0; j < 9; j++) {
@@ -46,27 +59,27 @@ public class GameController {
 			}
 			for (int m = 0; m < 4; m++) {
 				int tempLocation = (j * 10) + m;
-				if ((digits2[m] == characterThatChanges) && (doNotAlter.contains(tempLocation) == false)) {
+				if ((digits2[m] == characterThatChanges)
+						&& (doNotAlter.contains(tempLocation) == false)) {
 					locationsList.add(tempLocation);
 				}
 			}
 		}
-		
+
 		// make changes in tempAnswersArray
-		for(int p = 0, q = locationsList.size(); p < q; p++) {
-			
+		for (int p = 0, q = locationsList.size(); p < q; p++) {
+
 			int location = locationsList.get(p);
-			
+
 			// find positionInArray1 and positionInNumber1
 			int positionInArray1 = location / 10;
 			int positionInNumber1;
 			if (positionInArray1 == 0) {
 				positionInNumber1 = location;
+			} else {
+				positionInNumber1 = location % (positionInArray1 * 10);
 			}
-			else {
-				positionInNumber1 = location % (positionInArray1 * 10); 
-			}
-			
+
 			// change the number
 			int numberToBeChanged = tempAnswersArray[positionInArray1];
 			int[] numberDigits = new int[4];
@@ -74,77 +87,80 @@ public class GameController {
 				numberDigits[i] = numberToBeChanged % 10;
 				numberToBeChanged /= 10;
 			}
-			
+
 			numberDigits[positionInNumber1] = newVal;
 			int replaceNumber = 0;
 			int power = 3;
 			for (int j = 0; j < 4; j++) {
-				replaceNumber = replaceNumber + (numberDigits[j] * ((int)Math.pow(10, power)));
+				replaceNumber = replaceNumber
+						+ (numberDigits[j] * ((int) Math.pow(10, power)));
 				power -= 1;
 			}
 			tempAnswersArray[positionInArray1] = replaceNumber;
-			
+
 		}
-		
+
 		// make changes in tempNumberPickers
 		for (int b = 0, c = locationsList.size(); b < c; b++) {
-			int temp = ((locationsList.get(b)/ 10) * 4) + (locationsList.get(b) % 10);
+			int temp = ((locationsList.get(b) / 10) * 4)
+					+ (locationsList.get(b) % 10);
 			NumberPicker np = tempNumberPickers.get(temp);
 			np.setValue(newVal);
 			if (isHint) {
 				np.setEnabled(false);
 			}
 		}
-		
+
 		// return tempAnswersArray and tempNumberPickers
-		return new Object[]{tempAnswersArray, tempNumberPickers};
+		return new Object[] { tempAnswersArray, tempNumberPickers };
 	}
-	
+
 	// method that checks whether game is finished
 	public boolean wonGame(int[] numbersArray, int[] answersArray) {
-		
-		// declare boolean game_won
+
+		// declare boolean gameWon
 		boolean gameWon = true;
-		
+
 		// check whether all answers are right
 		for (int i = 0; i < 9; i++) {
 			if (numbersArray[i] != answersArray[i]) {
 				gameWon = false;
 			}
 		}
-		
+
 		// return either true or false
 		return gameWon;
 	}
-	
+
 	// method that checks whether new hint can be given (max 5 hints)
 	public boolean newHint(ArrayList<Integer> givenHints) {
 		if (givenHints.size() > 4) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}
-	
+
 	// method that generates and gives a hint
-	public Object[] giveHint(int[] numbersArray, int[] answersArray, ArrayList<NumberPicker> numberPickers, ArrayList<Integer> givenHints, long hintNumber, ArrayList<Integer> doNotAlter) {
-		
+	public Object[] giveHint(int[] numbersArray, int[] answersArray,
+			ArrayList<NumberPicker> numberPickers,
+			ArrayList<Integer> givenHints, long hintNumber,
+			ArrayList<Integer> doNotAlter) {
+
 		// calculate timePenalty
 		long tempTimePenalty;
 		if (hintNumber == 0) {
 			tempTimePenalty = 60000;
+		} else {
+			tempTimePenalty = (long) (60000 * (Math.pow(2, hintNumber)));
 		}
-		else {
-			tempTimePenalty = 60000 * (hintNumber * 2);
-		}
-		
+
 		// update hintNumber
 		hintNumber += 1;
-		
+
 		// boolean newHint
 		boolean newHint = false;
-		
+
 		// select randomly a new hint
 		int inArray = 0;
 		int inNumber = 0;
@@ -152,41 +168,43 @@ public class GameController {
 		int chosenTotal = 0;
 		int maxPossible = 4;
 		while (!newHint) {
-			
+
 			// generate random number between 0-9
 			Random rand = new Random();
 			inArray = rand.nextInt(9);
-			chosenTotal = numbersArray[inArray];			
-			
+			chosenTotal = numbersArray[inArray];
+
 			// generate random number between 0-3
 			inNumber = rand.nextInt(3);
-			
+
 			// check which number randomly was selected
 			int[] digits = new int[4];
 			for (int i = 3; i > -1; i--) {
 				digits[i] = chosenTotal % 10;
 				chosenTotal /= 10;
 			}
-			
+
 			chosenNumber = digits[inNumber];
-			
+
 			// check whether hint was already given
 			if (!givenHints.contains(chosenNumber)) {
 				newHint = true;
 				givenHints.add(chosenNumber);
 			}
 		}
-		
+
 		// change values in answersArray and numberPickers
 		int id = (inArray * 10) + inNumber;
-		Object[] changedArrays = changeAnswer(numberPickers, answersArray, numbersArray, chosenNumber, id, doNotAlter, true);
-		answersArray = (int[])changedArrays[0];
-    	numberPickers = (ArrayList<NumberPicker>)changedArrays[1];
-		
+		Object[] changedArrays = changeAnswer(numberPickers, answersArray,
+				numbersArray, chosenNumber, id, doNotAlter, true);
+		answersArray = (int[]) changedArrays[0];
+		numberPickers = (ArrayList<NumberPicker>) changedArrays[1];
+
 		// return answersArray, numberPickers, timePenalty and givenHints
-    	long[] timePenalty = new long[2];
-    	timePenalty[0] = tempTimePenalty;
-    	timePenalty[1] = hintNumber;
-		return new Object[]{answersArray, numberPickers, timePenalty, givenHints};
+		long[] timePenalty = new long[2];
+		timePenalty[0] = tempTimePenalty;
+		timePenalty[1] = hintNumber;
+		return new Object[] { answersArray, numberPickers, timePenalty,
+				givenHints };
 	}
 }

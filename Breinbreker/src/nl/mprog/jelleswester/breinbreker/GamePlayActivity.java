@@ -1,3 +1,14 @@
+/**
+ * Jelles Wester
+ * jelleswester@gmail.com
+ * 10004531
+ * 
+ * GamePlayActivity:
+ * This activity lets the user play the game. It contains the game board, 
+ * a Chronometer (or timer), a button to go back to the StartScreenActivity 
+ * and a button to get a hint for a time penalty.
+ */
+
 package nl.mprog.jelleswester.breinbreker;
 
 import java.util.ArrayList;
@@ -15,66 +26,66 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class GamePlayActivity extends ActionBarActivity {
-	
+
 	// declare game arrays
 	String[] symbolsArray;
 	String[] charactersArray;
 	int[] numbersArray;
 	int[] answersArray;
-	
+
 	// declare variables to record time
 	long startTime;
 	long timeElapsed;
 	Chronometer timeMeter;
-	
+
 	// create ArrayList numberPickers
 	ArrayList<NumberPicker> numberPickers = new ArrayList<NumberPicker>();
-	
-	// create ArrayList doNotAlter (contains locations of disabled numberPickers)
+
+	// create ArrayList doNotAlter (contains locations of disabled
+	// numberPickers)
 	ArrayList<Integer> doNotAlter = new ArrayList<Integer>();
-	
+
 	// declare variable needed to give hints
 	long hintNumber;
 	ArrayList<Integer> givenHints;
-	
+
 	// declare boolean winCheck
 	boolean winCheck = false;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getWindow().setFlags(
-	            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-	            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_game_play);
 		getActionBar().hide();
-		
+
 		// get saved game from savings
 		Context mContext = getApplicationContext();
-	    GameSavings gs = new GameSavings(mContext);
-	    boolean saved_game = gs.getGameSaved();
-	    
+		GameSavings gs = new GameSavings(mContext);
+		boolean savedGame = gs.getGameSaved();
+
 		// declare object array named gameArrays
 		Object[] gameArrays;
-		
+
 		// check for saved game
-		if (saved_game == true) {
-			
+		if (savedGame == true) {
+
 			// get the saved game
 			CreateGame game = new CreateGame(mContext);
 			gameArrays = game.savedGame();
 			timeElapsed = gs.getElapsedTime();
 		}
-		
+
 		// else open a new game
 		else {
-			
+
 			// get the new created game
 			CreateGame game = new CreateGame(mContext);
 			gameArrays = game.newGame();
 			timeElapsed = 0;
 		}
-		
+
 		// unpack the retrieved game
 		symbolsArray = (String[]) gameArrays[0];
 		numbersArray = (int[]) gameArrays[1];
@@ -83,82 +94,82 @@ public class GamePlayActivity extends ActionBarActivity {
 		long[] temp = (long[]) gameArrays[4];
 		hintNumber = temp[0];
 		givenHints = (ArrayList<Integer>) gameArrays[5];
-		
-		for (int z = 0; z < 9; z++) {
-			System.out.println(numbersArray[z]);
-		}
-		
+
 		// build the game
 		buildGame(symbolsArray, charactersArray);
 	}
-	
+
 	// method that builds the game
 	public void buildGame(String[] symbolsArray, String[] charactersArray) {
-		
+
 		// put characters in TextViews
 		for (int i = 0; i < 9; i++) {
-			
+
 			// get the string from charactersArray
 			String temp = charactersArray[i];
-			
+
 			// reverse the string and change into char array
-			String reversedString = new StringBuilder(new String(temp)).reverse().toString();
+			String reversedString = new StringBuilder(new String(temp))
+					.reverse().toString();
 			char[] charArray = reversedString.toCharArray();
 			int count = 0;
-			for (int k = 3; k > -1; k--){
-				
+			for (int k = 3; k > -1; k--) {
+
 				// find textView by id
 				String textViewID = "characterView" + i + "_" + k;
-				int resID = getResources().getIdentifier(textViewID, "id", "nl.mprog.jelleswester.breinbreker");
+				int resID = getResources().getIdentifier(textViewID, "id",
+						"nl.mprog.jelleswester.breinbreker");
 				TextView text = (TextView) findViewById(resID);
-				
-				// set character if there is any (string can be shorter than four)
+
+				// set character if there is any (string can be shorter than
+				// four)
 				if (charArray.length > count) {
 					text.setText(String.valueOf(charArray[count]));
-				}
-				else {
+				} else {
 					text.setText(" ");
 				}
 				count += 1;
 			}
 		}
-		
+
 		// put symbols in TextViews (+-x:=)
 		for (int j = 0; j < 12; j++) {
-			
+
 			// find symbolView by id
 			String symbolViewID = "symbolView" + j;
-			int resID = getResources().getIdentifier(symbolViewID, "id", "nl.mprog.jelleswester.breinbreker");
+			int resID = getResources().getIdentifier(symbolViewID, "id",
+					"nl.mprog.jelleswester.breinbreker");
 			TextView symbol = (TextView) findViewById(resID);
-			
+
 			// set the symbol
 			symbol.setText(symbolsArray[j]);
 		}
-		
+
 		// set the NumberPickers - loop through nine complete pickers
 		for (int i = 0; i < 9; i++) {
-			
+
 			// get the right number from the answersArray to be displayed
 			int number = answersArray[i];
 			int length = String.valueOf(numbersArray[i]).length();
 			int[] digits = new int[4];
 			int power = 3;
-			
+
 			// store the digits of the answersArray separately
-			for (int k = 0; k < 4; k ++) {
-				digits[k] = number / ((int)Math.pow(10,power));
-				number = number - (digits[k] * (int)Math.pow(10,power));
+			for (int k = 0; k < 4; k++) {
+				digits[k] = number / ((int) Math.pow(10, power));
+				number = number - (digits[k] * (int) Math.pow(10, power));
 				power -= 1;
 			}
-			
+
 			// loop through the four pickers
 			for (int j = 0; j < 4; j++) {
-				
+
 				// find NumberPicker by id
 				String textViewID = "numberPicker" + i + "_" + j;
-				int resID = getResources().getIdentifier(textViewID, "id", "nl.mprog.jelleswester.breinbreker");
+				int resID = getResources().getIdentifier(textViewID, "id",
+						"nl.mprog.jelleswester.breinbreker");
 				NumberPicker np = (NumberPicker) findViewById(resID);
-				
+
 				// set features NumberPicker - check if it needs to be disabled
 				if (length + j < 4) {
 					np.setEnabled(false);
@@ -167,15 +178,13 @@ public class GamePlayActivity extends ActionBarActivity {
 					np.setValue(0);
 					np.setId((i * 10) + j);
 					doNotAlter.add((i * 10) + j);
-				}
-				else if (givenHints.contains(digits[j])) {
+				} else if (givenHints.contains(digits[j])) {
 					np.setEnabled(false);
 					np.setMinValue(0);
 					np.setMaxValue(9);
 					np.setValue(digits[j]);
 					np.setId((i * 10) + j);
-				}
-				else {
+				} else {
 					np.setMinValue(0);
 					np.setMaxValue(9);
 					np.setValue(digits[j]);
@@ -183,27 +192,33 @@ public class GamePlayActivity extends ActionBarActivity {
 				}
 				np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 				np.setWrapSelectorWheel(true);
-				
+
 				// set onValueChangedListener
 				np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-					
+
 					@Override
-					public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-						
+					public void onValueChange(NumberPicker picker, int oldVal,
+							int newVal) {
+
 						// change answersArray and numberPickers accordingly
 						GameController game = new GameController();
-		            	Object[] changedArrays = game.changeAnswer(numberPickers, answersArray, numbersArray, picker.getValue(), picker.getId(), doNotAlter, false);
-		            	answersArray = (int[])changedArrays[0];
-		            	numberPickers = (ArrayList<NumberPicker>)changedArrays[1];
-		            	
+						Object[] changedArrays = game.changeAnswer(
+								numberPickers, answersArray, numbersArray,
+								picker.getValue(), picker.getId(), doNotAlter,
+								false);
+						answersArray = (int[]) changedArrays[0];
+						numberPickers = (ArrayList<NumberPicker>) changedArrays[1];
+
 						// check whether the game is finished
-		            	if ((!winCheck) && (game.wonGame(numbersArray,answersArray))) {
-		            		winCheck = true;
-		            		// start YouWonActivity
-		            		startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
-				         	finish();
+						if ((!winCheck)
+								&& (game.wonGame(numbersArray, answersArray))) {
+							winCheck = true;
+							// start YouWonActivity
+							startActivity(new Intent(GamePlayActivity.this,
+									YouWonActivity.class));
+							finish();
 						}
-					      
+
 					}
 				});
 
@@ -212,103 +227,107 @@ public class GamePlayActivity extends ActionBarActivity {
 			}
 		}
 	}
-	
+
 	// activates when hint button is pressed
 	public void hintButton(View view) {
-		
+
 		// check whether new hint should be given (max 4)
 		GameController game = new GameController();
 		boolean newHint = game.newHint(givenHints);
-		
+
 		// context and text in order to toast message
 		Context context = getApplicationContext();
 		CharSequence toastMessage;
-		
+
 		// if a new hint should be given
 		if (newHint) {
-			
+
 			// give hint and get changed variables
-			Object[] temp = game.giveHint(numbersArray, answersArray, numberPickers, givenHints, hintNumber, doNotAlter);
+			Object[] temp = game.giveHint(numbersArray, answersArray,
+					numberPickers, givenHints, hintNumber, doNotAlter);
 			answersArray = (int[]) temp[0];
 			numberPickers = (ArrayList<NumberPicker>) temp[1];
 			long[] tempTimePenalty = (long[]) temp[2];
 			long timePenalty = tempTimePenalty[0];
 			hintNumber = tempTimePenalty[1];
 			givenHints = (ArrayList<Integer>) temp[3];
-			
+
 			// set message
 			Context mContext = getApplicationContext();
 			HighScoreController hs = new HighScoreController(mContext);
-			String [] time = hs.convertTime(timePenalty);
-			toastMessage = "Time penalty: " + time[0] + ":" + time[1] + ":" + time[2];
-			
+			String[] time = hs.convertTime(timePenalty);
+			toastMessage = "Time penalty: " + time[0] + ":" + time[1] + ":"
+					+ time[2];
+
 			// add time penalty to elapsed time and add time to chronometer
-			timeElapsed = timeElapsed + timePenalty +(System.currentTimeMillis() - startTime);
+			timeElapsed = timeElapsed + timePenalty
+					+ (System.currentTimeMillis() - startTime);
 			startTime = System.currentTimeMillis();
 			timeMeter.stop();
 			timeMeter.setBase(SystemClock.elapsedRealtime() - (timeElapsed));
 			timeMeter.start();
-			
+
 			// check whether game is finished
 			if (game.wonGame(numbersArray, answersArray)) {
-				
+
 				// start YouWonActivity
-				startActivity(new Intent(GamePlayActivity.this, YouWonActivity.class));
-	         	finish();
+				startActivity(new Intent(GamePlayActivity.this,
+						YouWonActivity.class));
+				finish();
 			}
-			
-		}
-		else {
-	
+
+		} else {
+
 			// set message
 			toastMessage = "No more hints";
 		}
-		
+
 		// toast message
 		int duration = Toast.LENGTH_SHORT;
 		Toast toast = Toast.makeText(context, toastMessage, duration);
 		toast.show();
 	}
-  	
-  	@Override
-  	public void onResume() {
-  		super.onResume();
-  		
-  		// set the startTime
-  		startTime = System.currentTimeMillis();
-  		timeMeter = (Chronometer) findViewById(R.id.chronometer1);
-  		timeMeter.setBase(SystemClock.elapsedRealtime() - (timeElapsed));
-  		timeMeter.start();
-  	}
-	
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		// set the startTime
+		startTime = System.currentTimeMillis();
+		timeMeter = (Chronometer) findViewById(R.id.chronometer1);
+		timeMeter.setBase(SystemClock.elapsedRealtime() - (timeElapsed));
+		timeMeter.start();
+	}
+
 	@Override
 	public void onPause() {
-    	super.onPause();
-    	
-	    // update the elapsed time
-	    timeElapsed = timeElapsed + (System.currentTimeMillis() - startTime);
-	    timeMeter.stop();
-	    
-	    // save the game
-	    Context mContext = getApplicationContext();
-	    GameSavings gs = new GameSavings(mContext);
-	    gs.saveGame(numbersArray, answersArray, charactersArray, symbolsArray, timeElapsed, hintNumber, givenHints);
+		super.onPause();
+
+		// update the elapsed time
+		timeElapsed = timeElapsed + (System.currentTimeMillis() - startTime);
+		timeMeter.stop();
+
+		// save the game
+		Context mContext = getApplicationContext();
+		GameSavings gs = new GameSavings(mContext);
+		gs.saveGame(numbersArray, answersArray, charactersArray, symbolsArray,
+				timeElapsed, hintNumber, givenHints);
 	}
-  	
-  	// activates when back button is pressed
-  	public void backButton(View view) {
-      	
-  		// start StartScreenActivity
-  		startActivity(new Intent(this, StartScreenActivity.class));
-      	finish();
-   	}
-  	
-  	// activates when androids back button is pressed
-  	@Override
+
+	// activates when back button is pressed
+	public void backButton(View view) {
+
+		// start StartScreenActivity
+		startActivity(new Intent(this, StartScreenActivity.class));
+		finish();
+	}
+
+	// activates when androids back button is pressed
+	@Override
 	public void onBackPressed() {
-	    
-  		// start StartScreenActivity
-  		startActivity(new Intent(this, StartScreenActivity.class));
-	    finish();
+
+		// start StartScreenActivity
+		startActivity(new Intent(this, StartScreenActivity.class));
+		finish();
 	}
 }
