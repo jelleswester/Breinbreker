@@ -15,6 +15,6 @@ bijvoorbeeld de letter G overal voor hetzelfde cijfer staat.
 
 **Name Student:** Jelles Wester
 
-**Copyright statement:**
+**Copyright statement:** COPYRIGHT 2015 Jelles Wester
 
-**License:**
+**License:** All rights reserved.
